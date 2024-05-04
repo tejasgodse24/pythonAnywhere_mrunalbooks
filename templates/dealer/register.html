@@ -1,0 +1,75 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%}
+{% load static %}
+<!-- <link rel="stylesheet"  href=" {% static 'css/product.css' %}">  -->
+<link rel="stylesheet" href="/media/css/login.css">
+<link rel="stylesheet" href="/media/css/common.css">
+
+{% endblock %}
+
+
+{% block body%}
+
+<section id="contact-section">
+    <div class="container-fluid">
+
+        <div class="container contact-container">
+            <h1 class="heading"> Register For Dealer Membership</h1>
+
+            <form method="post">
+                {% csrf_token %}
+                {% include "base/alert.html" %}
+                <div class="row row-cols-1 g-4">
+
+
+                    <div class="col">
+                        <div class="md-form ">
+
+                            <input placeholder="First Name" required type="text" id="fname" name="fname" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="md-form ">
+
+                            <input placeholder="Last Name" required type="text" id="lname" name="lname" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- <div class="col">
+                        <div class="md-form ">
+
+                            <input placeholder="Phone No." required type="text" id="phone" name="phone" class="form-control">
+                        </div>
+                    </div> -->
+
+                    <div class="col">
+                        <div class="md-form ">
+
+                            <input placeholder="Email" required type="text" id="email" name="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="md-form ">
+
+                            <input placeholder="Password" required type="text" id="pssword" name="password" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="md-form ">
+                            <button class="btn"> Register </button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

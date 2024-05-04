@@ -1,0 +1,226 @@
+
+
+
+
+
+/*-------------------------------------- address-pickup-section --------------------------------------------------*/
+#address-pickup-section{
+    padding: 12rem 8%;
+}
+
+
+#address-pickup-section hr {
+    margin: 2% auto;
+    width: 70%;
+}
+
+#address-pickup-section .radio p{
+    margin: 0%;
+}
+
+
+#address-pickup-section .radio input[type="radio"] {
+    /* padding: 5%; */
+    display: none;
+    &:not(:disabled) ~ label {
+      cursor: pointer;
+    }
+    
+  }
+  
+  #address-pickup-section .radio label {
+    height: 100%;
+    display: block;
+    background: white;
+    /* border: 2px solid #ff0f33; */
+    border: 2px solid black;
+
+    border-radius: 20px;
+    padding: 2% 0;
+    /* margin-bottom: 1rem; */
+    /* margin: 1rem; */
+    text-align: center;
+    box-shadow: 0px 3px 10px -2px hsla(150, 5%, 65%, 0.5);
+    position: relative;
+  }
+  
+  #address-pickup-section .radio label:hover{
+    border: 3px solid #ff0f33;
+  }
+
+
+  #address-pickup-section .radio input[type="radio"]:checked + label {
+    background: #ff0f33;
+    /* color: hsla(215, 0%, 100%, 1); */
+    box-shadow: 0px 0px 20px #ff0f33;
+    color: white;
+    border: 2px solid #ff0f33;
+    
+  }
+  #address-pickup-section .radio input[type="radio"]:checked + hr{
+    color: white;
+  }
+
+  #address-pickup-section #homeD-section{
+    margin: 5% auto;
+  }
+
+  #address-pickup-section #homeD-section label{
+    color: gray;
+  }
+  #address-pickup-section #pickup-section{
+    margin: 5% auto;
+
+  }
+  #address-pickup-section #pickup-section label{
+    color: gray;
+  }
+  #address-pickup-section #fee-off{
+    color: red;
+  }
+  #address-pickup-section .required::after {
+    content: '*';
+    color: red;
+    margin:auto 4px;
+  }
+  #address-pickup-section .address-input-fields{
+    margin-top: 2%;
+  }
+  #address-pickup-section form label{
+    text-align: left !important;
+  }
+
+
+  #address-pickup-section .errorlist{
+    list-style-type: none;
+    color: red;
+    font-size: 0.9rem;
+    text-align: right !important;
+  }
+
+#address-pickup-section .all-addrss-section .adrss-detail-cell{
+  text-align: left;
+}
+#address-pickup-section .all-addrss-section .adrss-detail-cell p{
+  color: black;
+}
+
+#address-pickup-section .all-addrss-section input[type="radio"] {
+  cursor: pointer;
+}
+
+#address-pickup-section .all-addrss-section .label-col{
+  text-align: left;
+}
+
+
+#address-pickup-section .all-addrss-section  label{
+  cursor: pointer;
+  /* text-align: left; */
+}
+
+#address-pickup-section .btn-inside-search{
+  margin: 1rem 1rem !important;
+}
+#address-pickup-section .autocomplete-result-list{
+  text-align: left;
+}
+#address-pickup-section .wiki-title{
+  padding-left: 1rem;
+  text-align: left;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  border-radius: 5px;
+}
+
+#address-pickup-section .location-icon svg{
+  color: #ff0f33;
+}
+#address-pickup-section .autocomplete-result-list p{
+  margin-bottom: 0;
+}
+
+#address-pickup-section #selected-pickup p{
+  margin-bottom: 0;
+}
+
+
+
+#address-pickup-section #items-list .list-group-item {
+  border : none;
+}
+
+#address-pickup-section #items-list .detail-container{
+  text-align: left;
+  padding-left: 5%;
+}
+
+#address-pickup-section #items-list .price-container{
+  text-align: left;
+}
+
+
+#address-pickup-section .free-delivery-advice{
+  color: #ff0f33;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.cart-count{
+  background-color: #ff0f33;
+}
+.cart-item-count{
+  position: absolute;
+  display: inline-block;
+  /* top: 20px; */
+  /* left: 8px; */
+  background-color: #ff0f33;
+
+}
+
+
+#address-pickup-section #items-list .image-container{
+  background-color: #f5f5f5;
+  border: 1px solid gray;
+  border-radius: 5px;
+} 
+
+#address-pickup-section #couponForm .remove-coupon-btn{
+  margin: 0 auto;
+}
+
+#address-pickup-section .disabled{
+  border: 1px solid gray;
+}
+#address-pickup-section #rzp-button1{
+  background-color: green;
+  font-size: 2rem;
+}
+#address-pickup-section #rzp-button1:hover{
+  background-color: white;
+  color: green !important;
+  border: 1px solid green;
+}
+#address-pickup-section .you-are-member{
+  color: green;
+}
+
+
+
+/*------------------------------------- media query ------------------------------------------*/
+@media screen and (max-width : 600px) {
+  #address-pickup-section{
+    padding: 7rem 2%;
+    font-size: 0.8rem;
+  }
+  #none-selected-section{
+    font-size: 1rem;
+  }
+  .heading{
+    font-size: 1.2rem;
+  }
+  #address-pickup-section #items-list .list-group-item {
+    padding: 0;
+  }
+}

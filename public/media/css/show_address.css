@@ -1,0 +1,15 @@
+.adrss-details{
+    text-align: left;
+  }
+  .all-addrss-section p{
+    margin-bottom: 0;
+  }
+  #default{
+    color: green;
+  }
+  
+
+  /* media query */
+@media screen and (max-width : 600px) {
+    
+  }

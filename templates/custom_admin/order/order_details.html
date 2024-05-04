@@ -1,0 +1,206 @@
+{% extends 'custom_admin/basic.html' %} 
+{% load mathfilters %}
+
+{% block css %}
+<style>
+    .table td, .table .badge{
+        font-size: 1rem !important;
+    }
+    #courier-table .expandable-table td {
+        font-size: 1rem !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div class="row">
+    <div class="col-md-8 grid-margin stretch-card">
+
+        
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">All Books Inclued in Order</h4>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Book</th>
+                        <th>Title and Author</th>
+                        <th>Quantity</th>
+                        <th>Price per Unit</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% for item in all_items %}
+                    <tr>
+                        <td class="py-1">
+                            <img src="/media/{{item.product.image}}" alt="image" />
+                        </td>
+                        <td>    
+                            <h6 class="mb-0"><b>{{item.product.title}}</b></h6>
+                            <span><small class="text-muted">{{item.product.author}}</small></span>
+                        </td>
+                        <td>
+                            <span id="" class="fw-bold">{{item.quantity}}</span>
+
+                        </td>
+                        <td>
+                            {% if order.membership_type == 'prime' %}
+                            <span id="" class="fw-bold">Rs. {{ item.quantity|mul:item.product.prime_price }}</span>
+                            {% elif order.membership_type == 'dealer' %}
+                            <span id="" class="fw-bold">Rs. {{ item.quantity|mul:item.product.dealer_price }}</span>
+                            {% else %}
+                            <span id="" class="fw-bold">Rs. {{ item.quantity|mul:item.product.normal_price }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    </div>
+
+    <div class="col-md-4 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Order Details</h4>
+              
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Order Detail</th>
+                      <th>Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Customer Name</td>
+                      <td><label class="badge badge-primary">{{user_name}}</label></td>
+                    </tr>
+                    <tr>
+                      <td>Delivery Type</td>
+                      <td><label class="badge badge-primary">{{delivery_type}}</label></td>
+                    </tr>
+                    <tr>
+                      <td>Membership Type</td>
+                      <td><label class="badge badge-primary">{{order.membership_type}}</label></td>
+                    </tr>
+                    <tr>
+                      <td>Items Subtotal</td>
+                      <td><label class="badge badge-success">Rs. {{items_subtotal}}</label></td>
+                    </tr>
+                    <tr>
+                      <td>Shipping Charge</td>
+                      <td><label class="badge badge-success">Rs. {{shipping_charge}}</label></td>
+                    </tr>
+                    <tr>
+                      <td>Discount Price</td>
+                      <td><label class="badge badge-success">Rs. {{discount_price}}</label></td>
+                    </tr>
+                    <tr>
+                      <td>Tax Amount</td>
+                      <td><label class="badge badge-success">Rs. {{tax_amount}}</label></td>
+                    </tr>
+                    <tr>
+                      <td>Total Amount</td>
+                      <td><label class="badge badge-success">Rs. {{total_amount}}</label></td>
+                    </tr>
+                    
+
+                    
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+</div>
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Available Courier Services</h4>
+              <form method="post" >
+                {% csrf_token %}
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>No.</th>
+                      <th>Courier Name</th>
+                      <th>Charge</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for c in couriers %}
+                    <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td>{{c.name}}</td>
+                      <td><label class="badge badge-primary">Rs. {{c.courier_charge}}</label></td>
+                      <td>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                              <input required type="radio" class="form-check-input" name="couriers-radio" id="{{c.uid}}" value="{{c.uid}}">
+                            </label>
+                          </div>
+                      </td>
+                    </tr>
+                    {% endfor %}
+                    
+                    
+                  </tbody>
+                </table>
+              </div>
+              
+                <div class="d-flex justify-content-center">
+                  <input hidden type="email" name="email" id="email" value="{{order.user.email}}">
+                  <button type="submit" name="confirm"  class="btn btn-success btn-icon-text mx-1">
+                    <i class="ti-file btn-icon-prepend"></i>
+                    Confirm Order
+                  </button>
+                  <button type="submit" name="cancel" class="btn btn-danger btn-icon-text mx-1">
+                    <i class="ti-file btn-icon-prepend"></i>
+                    Cancel Order
+                  </button>
+                </div>
+                </form>
+              
+            </div>
+          </div>
+
+</div>
+<div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Address Details</h4>
+          <a href="/custom-admin-management/orders/download/{{order.uid}}" type="button" class="btn btn-outline-primary btn-icon-text">
+            <i class="ti-file btn-icon-prepend"></i>
+            Download Address Script
+          </a>
+         
+            <div class="d-flex justify-content-center pt-4">
+                <span class="font-weight-bold">
+                  {% if delivery_type == 'home' %}
+                      Ship To
+                  {% elif delivery_type == 'pickup' %}
+                      PickUp Point Address
+                  {% endif %}
+              </span>
+                <span class="lead text-primary">{{ship_a}}</span>
+              </div>
+        
+        
+          </div>
+          </div>
+          </div>
+</div>
+
+{% endblock %}

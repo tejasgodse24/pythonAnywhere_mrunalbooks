@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>AJAX Example</h1>
+    <div>
+        <p>Message: <span id="message"></span></p>
+        <p>Value: <span id="value"></span></p>
+    </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    
+    <script>
+         $(document).ready(function(){
+            $.ajax({
+                type: 'GET',
+                url: '/accounts/ajax/get-data/',
+                success: function(data) {
+                    // Handle the data from the server
+                    console.log(data);
+                    $('#message').text(data.message);
+                    $('#value').text(data.value);
+                },
+                error: function(error) {
+                    console.log('An error occurred', error);
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+ <!-- <form method="post">
+            {% csrf_token %} 
+            <label for="name" class="form-label mt-2 required">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+
+            <label for="pincode" class="form-label mt-2 required">Pincode</label>
+            <input type="text"  maxlength="6"  title="Please enter a 4-digit number"  class="form-control" id="pincode" name="pincode" required>
+            <div id="pincode-error"></div>
+            <label for="area" class="form-label mt-2 required">Area:</label>
+            <input type="text" class="form-control" id="area" name="area" value="" required>
+
+            <label for="adss1" class="form-label mt-2 required">Locality/ Street Name/ Aprtment</label>
+            <input type="text" class="form-control" id="adss1" name="adss1" value="" required>
+
+            <label for="adss2" class="form-label mt-2 required">Wing/ Floor/ Flat/ House No. </label>
+            <input type="text" class="form-control" id="adss2" name="adss2" value="" required>
+
+            <label for="adss3" class="form-label mt-2">landmark </label>
+            <input type="text" class="form-control" id="adss3" name="adss3" value="">
+
+            <label for="city" class="form-label mt-2 required">City </label>
+            <input type="text" class="form-control" id="city" name="city" value="" required>
+
+            <label for="state" class="form-label mt-2 required">State </label>
+            <input type="text" class="form-control" id="state" name="state" value="" required>
+
+            
+
+            <label for="phone" class="form-label mt-2 required">Contact Number for Order Delivery:</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+
+            <button type="submit" name="address-submit" class="btn mt-3">Save to Address Book</button>
+
+
+            </form> -->

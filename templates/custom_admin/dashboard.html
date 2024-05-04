@@ -1,0 +1,49 @@
+{% extends 'custom_admin/basic.html' %} 
+
+{% block body %}
+<div class="row">
+    <div class="col-md-6 grid-margin transparent">
+      <div class="row">
+        <div class="col-md-6 mb-4 stretch-card transparent">
+          <div class="card card-tale">
+            <div class="card-body">
+              <p class="mb-4 " >Today’s Placed Orders</p>
+              <p class="fs-30 mb-2">{{today_total_orders}}</p>
+              <!-- <p>10.00% (30 days)</p> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4 stretch-card transparent">
+          <div class="card card-dark-blue">
+            <div class="card-body">
+              <p class="mb-4 ">Total Orders Pending To Deliver</p>
+              <p class="fs-30 mb-2">{{total_pending_orders}}</p>
+              <!-- <p>22.00% (30 days)</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
+          <div class="card card-light-blue">
+            <div class="card-body">
+              <p class="mb-4 " >Total Orders Placed Till Date</p>
+              <p class="fs-30 mb-2">{{total_orders}}</p>
+              <!-- <p>2.00% (30 days)</p> -->
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 stretch-card transparent">
+          <div class="card card-light-danger">
+            <div class="card-body">
+              <p class="mb-4 " >Number of Users</p>
+              <p class="fs-30 mb-2">{{total_users}}</p>
+              <!-- <p>0.22% (30 days)</p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,567 @@
+body {
+  text-align: center;
+  font-family: "PT Sans", sans-serif ;
+  color: black;
+}
+
+.heading {
+  /* font-size: 2rem; */
+  font-size: 3rem;
+  line-height: 1.5;
+  text-align: center;
+  /* text-decoration: underline; */
+  /* font-family: "serif"; */
+  font-family: "Playfair Display", serif;
+}
+
+p {
+  color: #5e5d5d;
+  /* font-family: "Roboto"; */
+  font-family: "PT Sans", sans-serif ;
+
+}
+
+.btn {
+  background-color: #ff0f33;
+
+  font-family: "PT Sans", sans-serif ;
+
+  color: white;
+
+  font-weight: 100;
+  border: solid #ff0f33 2px;
+  transition: all 0.2s ease-in;
+}
+
+.btn:hover {
+  background-color: white;
+  color: #ff0f33;
+  border: solid #ff0f33 2px;
+  font-weight: 500;
+  /* color: #3F2305;
+  border: solid #3F2305 2px; */
+}
+
+.dropdown-menu {
+  max-height: 70vh;
+  overflow-y: auto;
+  color: black !important;
+}
+
+#title-section nav .btn {
+  background-color: transparent;
+}
+
+#title-section .btn:hover {
+  color: black;
+  border: none;
+}
+#title-section .nav-link{
+  font-size: 1.3rem;
+  transition: all 0.2s ease;
+}
+#title-section .nav-link:hover {
+  text-decoration: underline;
+}
+
+#profile-button {
+  background: transparent !important;
+}
+
+#profile-button:hover {
+  background: transparent !important;
+  border: none;
+}
+
+.custom-popover {
+  /* --bs-popover-max-width: 200px;
+  --bs-popover-border-color: var(--bd-violet-bg);
+  --bs-popover-header-bg: var(--bd-violet-bg);dismis-popover
+  --bs-popover-header-color: var(--bs-white);*/
+  --bs-popover-body-padding-x: 0rem;
+  --bs-popover-body-padding-y: 0;
+  --bs-popover-bg: #ff0f33;
+}
+/* .custom-membership-popover{
+  --bs-popover-bg: #ff0f33;
+  --bs-popover-color: white;
+} */
+
+.login-popover-btn {
+  padding: 13px 60px !important;
+  animation: shake 1s ease-in-out;
+}
+.login-popover-btn:hover {
+  border: none !important;
+  background-color: #ff0f33 !important;
+  color: white !important;
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25%,
+  75% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+/*-------------------------------navbar header section ----------------------------------*/
+
+.mynavbar {
+  position: fixed;
+  width: 100%;
+  z-index: 999;
+  top: 10px;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.inner-mynavbar {
+  border-radius: 8px;
+  padding: 0.9%;
+}
+.mynavbar svg {
+  color: white;
+  /* color: black; */
+
+  font-size: 2rem;
+}
+
+.mynavbar .nav-icon {
+  background-color: #ff0f33;
+  /* background-color: #1ec263; */
+  /* color: black; */
+  /* color: white; */
+}
+
+.mynavbar .inner-mynavbar a {
+  color: white;
+  /* color: black; */
+}
+
+.mynavbar .inner-mynavbar .nav-item {
+  margin: auto 5%;
+  font-size: 1.2rem;
+}
+
+.dropdown-menu a {
+  color: black !important;
+  font-size: 1.2rem;
+}
+
+.mynavbar .membership-info {
+  background-color: #ff0f33;
+  color: white;
+  padding: 1% 2%;
+}
+
+.mynavbar .collapse {
+  z-index: 999;
+}
+
+.logo{
+  text-align: center;
+
+}
+.logo img{
+  background-color: white;
+  border-radius: 100%;
+  height: 3rem;
+  width: 3rem;
+}
+
+.navbar-brand {
+  font-family: "Gluten", "cursive";
+  font-size: 2rem;
+  /* text-align: left; */
+  line-height: 0;
+  /* border: solid black 2px; */
+  padding-top: 0%;
+  padding-bottom: 0%;
+  /* background-color: #00c4cc; */
+  border-radius: 10px;
+  position: relative;
+  /* bottom: 0; */
+}
+
+
+
+
+/*-------------------------------slideshow header section ----------------------------------*/
+
+#myCarousel .carousel-item img {
+  object-fit: cover;
+  object-position: center;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+
+  filter: brightness(60%);
+  /* You can try with filter to give darkness to each image */
+}
+
+.carousel-caption {
+  top: 30%;
+  color: white;
+}
+
+#myCarousel .btn {
+  margin: auto 3%;
+}
+
+#myCarousel .btn:hover {
+  background-color: transparent;
+  /* color: #ff0f33 !important;
+  border: solid #ff0f33 2px; */
+  /* color: #1ec263;*/
+  border: solid black 2px;
+}
+
+/* -------------------------------features section --------------------------------- */
+/* 
+#features {
+  position: relative;
+  background-color: #efefef;
+  color: black;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+}
+
+.feature-box {
+  padding: 8%;
+}
+
+#features .icon {
+  color: #ff0f33;
+
+  margin-bottom: 1rem;
+}
+
+#features .icon:hover {
+  color: #8f8f8f;
+} */
+
+/*-------------------------------category section ----------------------------------*/
+
+#category-section {
+  /* background-color: #f5f5f4; */
+  /* background-color: #de3241; */
+  background-color: #dfdfdf;
+  color: black;
+}
+#category-section .heading{
+  color: black;
+}
+#category-section .category-section-hr{
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #f7f5f5, #ccc);
+  margin-bottom: 1rem;
+}
+
+#category-section .container-fluid {
+  padding: 0rem 5%;
+}
+#category-section .img-container{
+  position: relative;
+}
+#category-section .hover-div{
+  border-radius: 10px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease-in;
+}
+#category-section .hover-div:hover{
+  background-color: #00000046;
+}
+
+#category-section img {
+  border-radius: 10px;
+  width: 100%;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+}
+
+#category-section a {
+  text-decoration: none;
+}
+#category-section p{
+  color: black;
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-top: 2rem;
+}
+
+#category-section .card {
+  background-color: transparent;
+  border: none;
+  box-shadow: none !important;
+}
+
+#category-section .viewall {
+  text-align: right;
+}
+
+/*-------------------------------popular book section ----------------------------------*/
+
+#popularbook-section {
+  /* background-color: white; */
+  background-color: #f5f5f4;
+  color: black;
+}
+#popularbook-section .popular-book-hr{
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  margin-bottom: 2.5rem;
+}
+#popularbook-section .container-fluid {
+  padding: 2% 2%;
+}
+
+#popularbook-section p {
+  margin-bottom: 0;
+}
+
+#popularbook-section .viewall {
+  text-align: right;
+}
+
+.viewall a {
+  color: black !important;
+}
+
+#popularbook-section img {
+  width: 100%;
+  /* width: 90%; */
+  height: 40vh;
+  /* height: auto; */
+  /* margin-top: 10%; */
+  background-size: cover;
+  /* background-color: #00000080; */
+}
+#popularbook-section .hover-div{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease-in;
+}
+#popularbook-section .hover-div:hover{
+  background-color: #00000046;
+}
+#popularbook-section .img-container{
+  position: relative;
+}
+
+#popularbook-section .bookinfo {
+  /* text-align: left; */
+  text-align: center;
+
+  margin-top: 2%;
+}
+
+#popularbook-section .card a {
+  display: inline-block;
+}
+
+#popularbook-section .card {
+  background-color: #f5f5f4;
+  border: none;
+  margin-top: 8%;
+
+}
+#popularbook-section .bookcell{
+  background-color: #f5f5f4;
+}
+
+
+#popularbook-section .bookname {
+  color: #121212;
+  
+  font-size: 1.15rem;
+  line-height: 1.3;
+  /* font-family: "playfair display", serif; */
+  font-family: "PT Sans", sans-serif;
+  font-weight: 600;
+  /* font-family: 'Merriweather', serif; */
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+#popularbook-section .bookname:hover{
+  color: #de3241;
+}
+
+#popularbook-section .authorname {
+  color: #5b5b5b;
+  font-size: 1rem;
+  font-family: "PT Sans", sans-serif;
+  font-weight: 500;
+  /* margin-top: 0.20rem; */
+}
+
+#popularbook-section .price {
+  /* color: black; */
+  color: #de3241;
+  font-size: 1.3rem;
+  line-height: 0.9;
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+#popularbook-section .false-price {
+  text-decoration: line-through;
+  font-size: 1.2rem;
+  color: gray;
+}
+#popularbook-section .percent{
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+#popularbook-section .price-info {
+  /* text-align: left; */
+  text-align: center;
+
+}
+#popularbook-section .price-info a {
+  cursor: pointer;
+  /* color: green; */
+  line-height: 1.3;
+  font-size: 0.95rem;
+  /* letter-spacing: 1px; */
+  color: #3d3d3d;
+  margin-top: 0.6rem;
+  /* font-family: "Roboto"; */
+  font-family: "PT Sans", sans-serif ;
+  transition: all 0.2s ease-in ;
+
+}
+#popularbook-section .price-info a:hover {
+  /* color: green; */
+  /* font-size: 1rem; */
+  line-height: 1.5;
+}
+
+#popularbook-section .prime-price {
+  /* color: #ff0f33; */
+  color: #de3241;
+}
+
+#popularbook-section .card .btn {
+  margin: 2% 10%;
+}
+
+#popularbook-section .card a {
+  text-decoration: none;
+}
+
+#popularbook-section .btn {
+  padding-top: 5%;
+}
+
+#popularbook-section .favoruite-icon-container {
+  position: absolute;
+  /* display: inline-block; */
+  /* padding: 2px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: white;
+  top: 5px;
+  right: 3px;
+  cursor: pointer;
+  z-index: 99;
+}
+
+.pascal-case-text {
+  text-transform: capitalize;
+}
+
+/*-------------------------------------- footer section --------------------------------------------------*/
+
+
+#newFooter-section a{
+  text-decoration: none ;
+}
+#newFooter-section a:hover {
+  text-decoration: underline;
+}
+
+
+@media (max-width: 991px) {
+  .mynavbar .inner-mynavbar {
+    margin: auto 4%;
+  }
+
+}
+
+/* media query */
+@media screen and (max-width: 600px) {
+  #popularbook-section .container-fluid {
+    padding: 2% 0;
+  }
+  #popularbook-section .bookcell {
+    /* box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 0px; */
+    font-size: 0.8rem;
+  }
+  #popularbook-section img {
+    width: 100%;
+    /* height: auto; */
+  height: 30vh;
+    /* margin-top: 10%; */
+  }
+  #popularbook-section .container-fluid .container {
+    padding: 2%;
+  }
+
+  #popularbook-section .bookname {
+    font-size: 1rem;
+  }
+  #popularbook-section .authorname {
+    font-size: 0.9rem;
+  }
+  #popularbook-section .price {
+    font-size: 1.1rem;
+  }
+  #popularbook-section .percent{
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  #popularbook-section .false-price {
+    font-size: 1.1rem;
+  }
+
+  .logo img{
+    height: 3rem;
+    width: 3rem;
+  }
+  
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+  #newFooter-section h6{
+    font-size: 0.9rem;
+  }
+  #newFooter-section{
+    font-size: 0.8rem ;
+  }
+  #newFooter-section p{
+    margin-bottom: 0.3rem;
+  }
+}

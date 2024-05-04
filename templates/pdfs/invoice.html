@@ -1,0 +1,161 @@
+{% load mathfilters %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size:13px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    
+
+        p{
+            margin: 0;
+        }
+
+        .total {
+            text-align: right;
+        }
+       
+       
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Invoice</h1>
+    </header>
+
+
+    <div class="invoice">
+
+        
+
+        <div>
+            <p><b>Invoice Number:</b> {{invoive_no}}</p>
+            <p></p><b>Invoice Date:</b> {{invoice_date}}</div>
+        </div>
+
+        <div>
+            <p><b>Order Number:</b> {{order_no}}</p>
+            <p><b>Order Date:</b> {{order_date}}</p>
+        </div>
+
+        <hr>
+
+        <div>
+            <p><b>Sold By:</b></p>
+            <p>John Doe</p>
+            <p>123 Main Street</p>
+            <p>Cityville, State 12345</p>
+            <p>PAN NO. : XYZABC</p>
+            <p>GST Registration Number : ABC</p>
+        </div>
+        <hr>
+        <div>
+            <p><b>Bill To:</b></p>
+            <p>{{user_name}}</p>
+            <p>{{bil_a.adss2}} {{bil_a.adss1}} {{bil_a.area}} {{bil_a.adss3}} {{bil_a.city}} {{bil_a.state}} {{bil_a.pincode}} </p>
+        </div>
+        <hr>
+
+
+        {% if delivery_type == 'home' %}
+        <div>
+            <p><b>Ship To:</b></p>
+            <p>{{ship_a.name}}</p>
+            <p>{{ship_a.name}}, {{ship_a.adss2}} {{ship_a.adss1}} {{ship_a.area}} {{ship_a.adss3}} {{ship_a.city}} {{ship_a.state}} {{ship_a.pincode}} </p>
+        </div>
+        {% elif delivery_type == 'pickup' %}
+        <div>
+            <p><b>PickUp Point Address :</b></p>
+            <p>{{ship_a.name}}</p>
+            <p>{{ship_a.name}}, {{ship_a.adss2}} {{ship_a.adss1}} {{ship_a.area}} {{ship_a.adss3}} {{ship_a.city}} {{ship_a.state}} {{ship_a.pincode}} </p>
+        </div>
+        {% else %}
+        {% endif %}
+        
+        <hr>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in order_items %}
+
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{item.product.title}}</td>
+                    <td>{{item.quantity}}</td>
+                    <td>Rs. {{item.product.price}}</td>
+
+                    {% if request.user.profile.login_type == 'prime' %}
+                        <td>Rs. {{ item.quantity|mul:item.product.prime_price }}</td>
+                    {% elif request.user.profile.login_type == 'dealer' %}
+                        <td>Rs. {{ item.quantity|mul:item.product.dealer_price }}</td>
+                    {% else %}
+                        <td>Rs. {{ item.quantity|mul:item.product.normal_price }}</td>
+                    {% endif  %}
+                </tr>
+
+                {% endfor %}
+
+                
+            </tbody>
+        </table>
+       
+
+        <div class="total">
+
+            <p><b>Subtotal :   </b>Rs. {{items_subtotal}}</p>
+
+            {% if order.coupon %}
+                <p><b>Discount :   </b>Rs. {{discount_price}}</p>
+            {% else %}
+                <p><b>Discount :   </b>Rs. 00.00</p>
+            {% endif %}
+
+            <p><b>Shipping Charge :   </b>Rs. {{shipping_charge}}</p>
+
+            <p><b>Tax :   </b>Rs.{{tax_amount}}</p>
+
+            <p><b>Total :   </b>Rs. {{total_amount}}</p>
+        </div>
+    </div>
+</body>
+
+</html>

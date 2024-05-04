@@ -1,0 +1,91 @@
+{% extends 'base/basic.html' %} {% block css%} {% load static %}
+<link rel="stylesheet" href="/media/css/login.css" />
+
+{% endblock %} {% block body%}
+
+<div class="loader">
+  <div class="spinner-border" role="status" id="spinner">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<section id="contact-section">
+  <div class="container-fluid">
+    <div class="container contact-container">
+      <h1 class="heading">Register</h1>
+
+      <form method="post" id="register-form">
+        {% csrf_token %} {% include "base/alert.html" %}
+        <div class="row row-cols-1 g-4">
+          <div class="col">
+            <div class="md-form">
+              <input placeholder="First Name" required type="text" id="fname" name="fname" class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <input placeholder="Last Name" required type="text" id="lname" name="lname" class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <input placeholder="Email" required type="email" id="email" name="email" class="form-control" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="md-form">
+              <input placeholder="Password" required type="password" id="password" name="password"
+                class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <input placeholder="Phone No." required type="tel" pattern="[0-9]{10}" id="phone" name="phone"
+                class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <button type="submit" id="submit-btn" class="btn">
+                Register
+              </button>
+            </div>
+            <div>
+              <span>Already Have an Account ? </span><a class="register-now" href="/accounts/login"><b>Login
+                  Here</b></a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %} 
+
+{% block js %}
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.querySelector(".loader");
+    loader.classList.add("loader-hidden");
+  });
+
+  $(document).on("click", "#submit-btn", function () {
+    const loader = document.querySelector(".loader");
+    loader.classList.remove("loader-hidden");
+  });
+
+  const form = document.getElementById("register-form");
+  const inputElements = form.querySelectorAll("input");
+  inputElements.forEach(function (input) {
+    input.addEventListener("focus", function () {
+      const loader = document.querySelector(".loader");
+      loader.classList.add("loader-hidden");
+    });
+  });
+</script>
+{% endblock %}

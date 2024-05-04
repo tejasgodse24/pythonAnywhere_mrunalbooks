@@ -1,0 +1,26 @@
+.address-input-fields{
+    margin-top: 5%;
+    text-align: left;
+}
+
+.contact-container .md-form{
+    text-align: left ;
+}
+
+.address-input-fields label{
+    color: gray;
+}
+
+.edit-address-btn-profile{
+    text-align: right;
+    color: green;
+}
+
+.edit-address-btn-profile span{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.errorlist{
+    color: #ff0f33 ;
+}
+

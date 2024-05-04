@@ -1,0 +1,49 @@
+{% extends 'custom_admin/basic.html' %} 
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+
+<div class="card">
+    <div class="card-body">
+    {% include "base/alert.html" %}
+
+      <p class="card-title">Pending Orders</p>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table id="" class="display expandable-table" style="width:100%">
+              <thead>
+                <tr>
+                  <th>No#</th>
+                  <th>Order ID</th>
+                  <th>Customer Email</th>
+                  <th>Dispatched Time</th>
+                  <th>Order Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for order in all_orders %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{order.uid}}</td>
+                  <td>{{order.user.email}}</td>
+                  <td>{{order.updated_at}}</td>
+                  <td>{{order.order_date}}</td>
+                  <td><a href="/custom-admin-management/orders/pending-order-details/{{order.uid}}" type="button" class="btn btn-primary btn-rounded btn-fw">View Details</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+    </div>
+
+{% endblock %}

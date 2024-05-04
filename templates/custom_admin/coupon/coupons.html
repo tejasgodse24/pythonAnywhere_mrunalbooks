@@ -1,0 +1,53 @@
+{% extends 'custom_admin/basic.html' %} 
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+
+<div class="card">
+    <div class="card-body">
+      <h4 class="card-title">All Coupons</h4>
+     
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Coupon Code</th>
+              <th>Is Expired</th>
+              <th>Discount Price</th>
+              <th>Minimum Purchase Amount</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for coupon in all_coupons %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{coupon.coupon_code}}</td>
+              <td>{% if coupon.is_expired %}Expired {% else %}Not Expired {% endif %}</td>
+              <td>{{coupon.discount_price}}</td>
+              <td>{{coupon.minimum_amount}}</td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card">
+  <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-center">
+        <a target="_blank" href="/custom-admin-management/coupon-management/" type="button" class=" mx-4  btn btn-primary btn-icon-text">
+          Manage Coupons 
+        </a>
+        </div>
+        </div>
+        </div>
+        </div>
+</div>
+{% endblock %}
+

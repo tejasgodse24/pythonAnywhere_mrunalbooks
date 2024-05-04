@@ -1,0 +1,64 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%}
+{% load static %}
+
+<link rel="stylesheet" href="/media/css/contact.css">
+<link rel="stylesheet" href="/media/css/show_orders.css">
+
+
+{% endblock %}
+
+
+{% block body%}
+
+
+<section id="order-section">
+
+
+
+    <div class="container mt-5">
+        {% include "base/alert.html" %}
+
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">Order Status</th>
+                            <th scope="col">Order Time</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for order in all_orders %}
+                        <tr>
+                            <th scope="row">{{forloop.counter}}</th>
+                            {% if order.is_shipped == True %}
+                            <td>Shipped</td>
+                            {% else %}
+                            <td>Not Shipped</td>
+                            {% endif %}
+                            <td>{{order.order_date}}</td>
+                            <td>
+                                <a href="/accounts/show-order-items/{{order.uid}}" class="btn btn-sm">Show Details</a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+</section>
+
+{% endblock %}

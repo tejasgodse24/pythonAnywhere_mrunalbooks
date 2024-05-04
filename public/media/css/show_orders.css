@@ -1,0 +1,19 @@
+#order-section .container{
+    padding: 10rem 2%;
+}
+
+#order-section .container .btn:hover{
+    font-size: 80%;
+}
+
+/*------------------------------------- media query ------------------------------------------*/
+@media screen and (max-width : 600px) {
+    #order-section .container{
+        padding: 6rem 2%;
+        font-size: 0.7rem;
+    }    
+    #order-section .container a{
+        font-size: 0.7rem;
+        line-height: 1;
+    }
+}

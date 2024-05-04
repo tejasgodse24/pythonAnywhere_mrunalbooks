@@ -1,0 +1,74 @@
+{% load mathfilters %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size:13px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+
+        p{
+            margin: 0;
+        }
+        
+       
+       
+       
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Courier Script</h1>
+    </header>
+
+
+    <div class="invoice">
+
+        <div>
+            <p><b>Order Number:</b> {{order.order_no}}</p>
+            <p><b>Order Date:</b> {{order.order_date}}</p>
+        </div>
+
+       
+        <hr>
+        <div id="to" style="font-size: 2rem;">
+            <p><b>To:</b></p>
+            
+            
+            <div>
+            
+               
+                <p>{{order.user.first_name}} {{order.user.last_name}}</p>
+                <p>{{order.shipping_address}}</p>
+            </div>
+        </div>
+        <hr>
+
+        <div id="from">
+            <p><b>From:</b></p>
+            <p>Mrunal Book Shop</p>
+            <p>123 Main Street</p>
+            <p>Cityville, State 12345</p>
+            <p>Phone Number : +914565987854</p>
+        </div>
+
+        <hr>
+
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,23 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%} 
+<link rel="stylesheet" href="/media/css/not_login.css">
+
+{% endblock %}
+
+{% block body%} 
+
+
+<section id="contact-section">
+    <div class="container-fluid">
+
+        <div class="container contact-container">
+            <h3 class="">Missing {{type}} Items ?</h3>
+            <h5 class="">Login to see the items you added previously</h5>
+                <a href="/accounts/login/" class="btn">Log In</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

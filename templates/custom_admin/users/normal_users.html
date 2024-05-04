@@ -1,0 +1,45 @@
+{% extends 'custom_admin/basic.html' %} 
+
+{% block body %}
+
+<div class="card">
+    <div class="card-body">
+      <p class="card-title">Normal Users</p>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table id="" class="display expandable-table" style="width:100%">
+              <thead>
+                <tr>
+                  <th>No#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Mobile Number</th>
+                  <th>User Joined Time-Date</th>
+                  <th>Last Login Time-Date</th>
+                  <th>Membership Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for user in normal_users %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{user.user.first_name}}</td>
+                  <td>{{user.user.last_name}}</td>
+                  <td>{{user.user.email}}</td>
+                  <td>{{user.mobile_number}}</td>
+                  <td>{{user.user.date_joined}}</td>
+                  <td>{{user.user.last_login}}</td>
+                  <td>{{user.login_type}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+{% endblock %}

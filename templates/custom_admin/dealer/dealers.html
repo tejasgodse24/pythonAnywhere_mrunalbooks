@@ -1,0 +1,57 @@
+{% extends 'custom_admin/basic.html' %} 
+
+{% block body %}
+<div class="row">
+  <div class="col-md-12 grid-margin stretch-card">
+
+<div class="card">
+    <div class="card-body">
+      <p class="card-title">All Dealers</p>
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive">
+            <table id="" class="display expandable-table" style="width:100%">
+              <thead>
+                <tr>
+                  <th>No#</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <th>Mobile Number</th>
+                  <th>Pick Up Store Address</th>
+                  
+                </tr>
+              </thead>
+              <tbody>
+                {% for dealer in all_dealers %}
+                <tr>
+                  <td>{{forloop.counter}}</td>
+                  <td>{{dealer.fname}}</td>
+                  <td>{{dealer.lname}}</td>
+                  <td>{{dealer.user.email}}</td>
+                  <td>{{dealer.phone}}</td>
+                  <td>{{dealer.dealer_addressess.all.first}}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-12 grid-margin stretch-card">
+      <div class="card">
+          <div class="card-body">
+            <div class="d-flex justify-content-center">
+            <a target="_blank" href="/custom-admin-management/dealership-management/" type="button" class=" mx-4  btn btn-primary btn-icon-text">
+              Manage Dealers
+            </a>
+            </div>
+            </div>
+            </div>
+            </div>
+    </div>
+
+{% endblock %}

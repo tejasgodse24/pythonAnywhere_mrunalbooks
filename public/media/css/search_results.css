@@ -1,0 +1,209 @@
+
+
+
+/*-------------------------------popular book section ----------------------------------*/
+
+#popularbook-section {
+  /* background-color: white; */
+  background-color: #f5f5f4;
+  padding-top: 8rem;
+  color: black;
+}
+#popularbook-section .popular-book-hr{
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  margin-bottom: 2.5rem;
+}
+#popularbook-section .container-fluid {
+  padding: 2% 2%;
+}
+
+#popularbook-section p {
+  margin-bottom: 0;
+}
+
+#popularbook-section .viewall {
+  text-align: right;
+}
+
+.viewall a {
+  color: black !important;
+}
+
+#popularbook-section img {
+  width: 100%;
+  /* width: 90%; */
+  height: 40vh;
+  /* height: auto; */
+  /* margin-top: 10%; */
+  background-size: cover;
+  /* background-color: #00000080; */
+}
+#popularbook-section .hover-div{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: all 0.2s ease-in;
+}
+#popularbook-section .hover-div:hover{
+  background-color: #00000046;
+}
+#popularbook-section .img-container{
+  position: relative;
+}
+
+#popularbook-section .bookinfo {
+  /* text-align: left; */
+  text-align: center;
+
+  margin-top: 2%;
+}
+
+#popularbook-section .card a {
+  display: inline-block;
+}
+
+#popularbook-section .card {
+  background-color: #f5f5f4;
+  border: none;
+  margin-top: 8%;
+
+}
+#popularbook-section .bookcell{
+  background-color: #f5f5f4;
+}
+
+#popularbook-section .bookcell:hover {
+  /* border: solid black 2px; */
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+}
+
+#popularbook-section .bookname {
+  color: #121212;
+  
+  font-size: 1.15rem;
+  line-height: 1.3;
+  /* font-family: "playfair display", serif; */
+  font-family: "PT Sans", sans-serif;
+  font-weight: 600;
+  /* font-family: 'Merriweather', serif; */
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+}
+#popularbook-section .bookname:hover{
+  color: #de3241;
+}
+
+#popularbook-section .authorname {
+  color: #5b5b5b;
+  font-size: 1rem;
+  font-family: "PT Sans", sans-serif;
+  font-weight: 500;
+  /* margin-top: 0.20rem; */
+}
+
+#popularbook-section .price {
+  /* color: black; */
+  color: #de3241;
+  font-size: 1.3rem;
+  line-height: 0.9;
+  font-weight: 600;
+  margin-top: 0.6rem;
+}
+#popularbook-section .false-price {
+  text-decoration: line-through;
+  font-size: 1.2rem;
+  color: gray;
+}
+#popularbook-section .percent{
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+#popularbook-section .price-info {
+  /* text-align: left; */
+  text-align: center;
+
+}
+#popularbook-section .price-info a {
+  cursor: pointer;
+  /* color: green; */
+  line-height: 1.3;
+  font-size: 0.95rem;
+  /* letter-spacing: 1px; */
+  color: #3d3d3d;
+  margin-top: 0.6rem;
+  /* font-family: "Roboto"; */
+  font-family: "PT Sans", sans-serif ;
+  transition: all 0.2s ease-in ;
+
+}
+#popularbook-section .price-info a:hover {
+  /* color: green; */
+  /* font-size: 1rem; */
+  line-height: 1.5;
+}
+
+#popularbook-section .prime-price {
+  /* color: #ff0f33; */
+  color: #de3241;
+}
+
+#popularbook-section .card .btn {
+  margin: 2% 10%;
+}
+
+#popularbook-section .card a {
+  text-decoration: none;
+}
+
+#popularbook-section .btn {
+  padding-top: 5%;
+}
+
+#popularbook-section .favoruite-icon-container {
+  position: absolute;
+  display: inline-block;
+  top: 7px;
+  right: 8px;
+  cursor: pointer;
+  z-index: 99;
+}
+
+.pascal-case-text {
+  text-transform: capitalize;
+}
+
+  
+/*---------------------------------- media query--------------------------------------- */
+@media screen and (max-width: 600px) {
+  #popularbook-section .container-fluid {
+    padding: 7rem 0;
+  }
+  #popularbook-section .bookcell {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 0px;
+    font-size: 0.8rem;
+  }
+  #popularbook-section img {
+    width: 100%;
+    height: auto;
+    margin-top: 10%;
+  }
+  #popularbook-section .container-fluid .container {
+    padding: 2%;
+  }
+
+  #popularbook-section .bookname {
+    font-size: 0.8rem;
+  }
+  #popularbook-section .authorname {
+    font-size: 0.7rem;
+  }
+  #popularbook-section .price {
+    font-size: 1rem;
+  }
+  #popularbook-section .false-price {
+    font-size: 1.1rem;
+  }
+}

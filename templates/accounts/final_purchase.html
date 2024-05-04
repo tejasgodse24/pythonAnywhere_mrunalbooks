@@ -1,0 +1,584 @@
+{% extends 'base/basic.html' %}
+{% load mathfilters %}
+{% block css%}
+
+<link rel="stylesheet" href="/media/css/final_purchase.css" />
+
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css" />
+
+{% endblock %} 
+{% block body%}
+
+<div class="loader">
+  <div class="spinner-border" role="status" id="spinner">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<section id="address-pickup-section">
+  {% if cart_items %}
+  <div class="container-fluid">
+
+
+    <div class="row g-5">
+      <div class="col-md-7 col-lg-8">
+        <div class="mb-4 heading">Checkout Page</div>
+
+        <div class="delivery-options">
+          {% include "base/alert.html" %}
+          <label class="mb-3">Delivery Options:</label>
+
+          <div id="radio-options" class="radio row row-cols-2 g-4">
+            <div class="col">
+              <input type="radio" class="radio-btn" id="pickup-radio" name="delivery" value="pickup-radio" />
+              <label for="pickup-radio">
+                <p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-shop-window" viewBox="0 0 16 16">
+                    <path
+                      d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h12V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zm2 .5a.5.5 0 0 1 .5.5V13h8V9.5a.5.5 0 0 1 1 0V13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9.5a.5.5 0 0 1 .5-.5z" />
+                  </svg>
+                  PickUp Point
+                </p>
+                <hr />
+                <p>Free Delivery</p>
+              </label>
+            </div>
+
+            <div class="col">
+              <input type="radio" class="radio-btn" id="homeD-radio" name="delivery" value="homeD-radio" />
+              <label for="homeD-radio">
+                <p>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                    class="bi bi-house-door" viewBox="0 0 16 16">
+                    <path
+                      d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146ZM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5Z" />
+                  </svg>
+                  Home Delivery
+                </p>
+                <hr />
+                <p>
+                  Flat Rs.
+                  {{request.user.profile.login_type.home_delivery_price}}
+                </p>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pickup Section -->
+        <div class="pickup-section" id="pickup-section">
+          <label for="store-search" class="form-label">Search for Pickup Stores:</label>
+          <div id="autocomplete" class="autocomplete">
+            <input class="autocomplete-input" placeholder="Search Dealer by Pincode/Area/City/"
+              aria-label="Search dealer" />
+            <ul class="autocomplete-result-list"></ul>
+          </div>
+          <div class="selected-pickup" id=""></div>
+        </div>
+
+        <!-- Delivery Section -->
+        <div class="homeD-section" id="homeD-section">
+          {% if addrss %}
+
+          <div id="all-addrss-section" class="all-addrss-section">
+            <div class="row row-cols-1">
+              {% for a in addrss %}
+              <div class="col">
+                <div class="row">
+                  <div class="col-1 radio-col">
+                    <span class="input-radio-span">
+                      <input type="radio" class="adrss-radio" name="address" id="radio-{{a.uid}}" />
+                    </span>
+                  </div>
+                  <div class="col-9 label-col">
+                    <label for="radio-{{a.uid}}" id="{{a.uid}}" class="input-radio-label">
+                      <p class="mb-0"><b>{{a.name}} - {{a.phone}}</b></p>
+                      <p>
+                        {{a.adss2}} {{a.adss1}} {{a.area}} {{a.city}}{{a.state}} {{a.pincode}}
+                      </p>
+                    </label>
+                  </div>
+                  <div class="col-2 edit-btn-col">
+                    <a href="/accounts/final-purchase/edit-addrss/{{a.uid}}/" class="btn edit-adrss-btn">Edit</a>
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col btn-col">
+              <a class="btn" href="/accounts/user-address/add-new-address?next=/accounts/final-purchase" id="">Add New</a>
+            </div>
+          </div>
+          {% else %}
+           <div>
+            <p>Don't Have Address. Add One </p>
+            <a class="btn" href="/accounts/user-address/add-new-address?next=/accounts/final-purchase" id="">Add New</a>
+           </div>
+          {% endif %}
+        </div>
+        <div class="none-selected-section" id="none-selected-section">
+          <div class="mt-5">
+            What you want Home Delivey or Pickup from Nearest Point . Select one
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <div class="mb-5 card">
+          <div class="card-body p-6">
+            <ul class="list-group mb-3" id="items-list">
+              {% for item in cart_items %}
+
+              <li class="list-group-item d-flex mb-1 lh-sm row">
+                <div class="col-2 image-container">
+                  <img src="/media/{{item.product.image}}" alt="Ecommerce" class="img-fluid" />
+                  <span class="badge cart-item-count rounded-pill">{{item.quantity}}</span>
+                </div>
+
+                <div class="col-7 detail-container">
+                  <div class="">{{item.product.title}}</div>
+                  <small class="text-body-secondary">{{item.product.author}}</small>
+                </div>
+                {% if request.user.profile.login_type.name == 'prime' %}
+                <div class="text-body-secondary col-3 price-container">
+                  Rs. {{ item.quantity|mul:item.product.prime_price }}
+                </div>
+                {% elif request.user.profile.login_type.name == 'dealer' %}
+                <div class="text-body-secondary col-3 price-container">
+                  Rs. {{ item.quantity|mul:item.product.dealer_price }}
+                </div>
+                {% else %}
+                <div class="text-body-secondary col-3 price-container">
+                  Rs. {{ item.quantity|mul:item.product.normal_price }}
+                </div>
+                {% endif %}
+              </li>
+              {% endfor %}
+            </ul>
+
+            <div class="mt-8 mb-4">
+
+              <form id="couponForm" method="post">
+                {% csrf_token %}
+                <div id="coupon-alert">
+                  <div id="alert-container">
+                  </div>
+                </div>
+                <div class="mb-2">
+                  <label for="giftcard" class="form-label sr-only">Have Coupon ?</label>
+                  <input type="text" class="form-control" name="coupon" placeholder="Coupon Code" />
+                </div>
+                <div id="coupons-existed" class="coupons-existed">
+                  {% if cart.coupon %}
+                  <div class="mb-2">
+                    <a id="{{cart.uid}}" class="btn remove-coupon-btn">{{cart.coupon}}
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-x-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                        <path
+                          d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+                      </svg>
+                    </a>
+                  </div>
+                  {% endif %}
+                </div>
+                <!-- btn -->
+                <div class="d-grid">
+                  <button type="submit" name="coupon-submit" id="coupon-submit" class="btn mb-1">
+                    Redeem
+                  </button>
+                </div>
+                <p class="text-muted mb-0">
+                  <small>Terms &amp; Conditions apply</small>
+                </p>
+              </form>
+            </div>
+
+            <div class="mb-2 heading">Summary</div>
+
+            <div class="card mb-2">
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="me-auto">
+                    <div>Item Subtotal</div>
+                  </div>
+
+                  <span id="total-price-without-coupon">Rs. {{item_subtotal}}</span>
+                </li>
+
+                <div id="home-delivery-charge-box">
+                  <li id="" class="list-group-item d-flex justify-content-between align-items-start">
+                    <div id="" class="me-auto">
+                      <div>Shipping Charges</div>
+                    </div>
+                    <span id="home_delivery_charge_span">Rs.
+                      {{request.user.profile.login_type.home_delivery_price}}</span>
+                  </li>
+                </div>
+
+                {% if cart.coupon %}
+                <div id="coupon-discount-price-box">
+                  <li id="fee-off" class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="me-auto">
+                      <div>Coupon Fee Off</div>
+                    </div>
+                    <span id="discount-price">Rs. {{cart.coupon.discount_price}}</span>
+                  </li>
+                </div>
+                {% else %}
+                <div id="coupon-discount-price-box"></div>
+                {% endif %}
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="me-auto">
+                    <div class="fw-bold">Total Amount</div>
+                  </div>
+
+                  <span id="" class="fw-bold final-total-price">{{total_pay}}</span>
+                </li>
+              </ul>
+            </div>
+            {% if request.user.profile.login_type.name == 'normal' %}
+            <div class="free-delivery-advice">
+              <p><b>Select PickUp from Store option for Free Delivery</b></p>
+            </div>
+            {% else %}
+            <div class="you-are-member">
+              <b>You are {{request.user.profile.login_type}} member</b>
+            </div>
+            {% endif %}
+
+            <div class="d-grid mb-1">
+              <form id="orderSubmit" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="selected_adress_option" required value="None" name="selected_adress_option" />
+                <div class="d-grid gap-2" id="rzp-button1-container">
+
+                  <p>Please Select Address First to Place Order</p>
+                </div>
+              </form>
+            </div>
+            <p>
+              <small>By placing your order, you agree to be bound by the
+                mrunalbook's <a href="#!">Terms of Service</a> and
+                <a href="#!">Privacy Policy.</a>
+              </small>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% else %}
+  <div class="container-fluid">
+    <h1 class="heading mb-4"><b>Your Cart is Empty</b></h1>
+    <h5 class="">There are no items in your cart</h5>
+    <a class="btn" href="/">Continue Shopping</a>
+  </div>
+  {% endif %}
+</section>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+{% endblock %} {% block js %}
+
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.querySelector(".loader");
+    loader.classList.add("loader-hidden");
+  });
+
+  new Autocomplete("#autocomplete", {
+    search: (input) => {
+      const url = `/dealer/get-names/?search=${input}`;
+      return new Promise((resolve) => {
+        fetch(url)
+          .then((response) => response.json())
+          .then((data) => {
+            resolve(data.payload);
+          });
+      });
+    },
+
+    renderResult: (result, props) => {
+      let group = ``;
+      if (result.index % 3 === 0) {
+        group = `<li class="group">Group</li>`;
+      }
+
+      return `
+      ${group}
+      <li ${props}>
+        <div id="${result.uid}" class="wiki-title">
+      <div>
+        <p><b>${result.adss1}/ ${result.area}</b></p>
+        <p>${result.adss2}, ${result.adss1}, ${result.area}, ${result.city}, ${result.pincode}</p>
+        <p>${result.state}</p>
+      </div>
+      <div>
+        
+        <span class="location-icon"><svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+              </svg> - ${result.pincode}, ${result.area}
+        </span>
+      </div>
+    </div>
+      `;
+    },
+
+    getResultValue: (result) => {
+      var template = `
+      <div id="${result.uid}" class="wiki-title">
+          <div>
+            <p><b>${result.adss1}/ ${result.area}</b></p>
+            <p>${result.adss2}, ${result.adss1}, ${result.area}, ${result.city}, ${result.pincode}</p>
+            <p>${result.state}</p>
+          </div>
+          
+        </div>
+      `;
+      $(".selected-pickup").html(template);
+
+      return `${result.name}`;
+    },
+  });
+
+  $(document).on("click", "#rzp-button1", function () {
+    event.preventDefault();
+    selected_adress_option = document.getElementById(
+      "selected_adress_option"
+    ).value;
+    $.ajax({
+      type: "GET",
+      url: "{% url 'make_final_payment_ajax' %}",
+      data: { selected_adress_option: selected_adress_option },
+      success: function (response) {
+        if (response.payment_mode == true) {
+          var options = {
+            key: "rzp_test_rvrFdgkjIsvvnd",
+            amount: response.payment["amount"],
+            currency: "INR",
+            name: "Ecomm",
+            description: "Test Transaction",
+            order_id: response.payment["id"],
+            handler: function (response) {
+              const loader = document.querySelector(".loader");
+              loader.classList.remove("loader-hidden");
+              window.location.href = `https://mrunalbooks.com/accounts/payment-success/place-final-order/?selected_adrss_uid=${selected_adress_option}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}&razorpay_signature=${response.razorpay_signature}`;
+              // window.location.href = `http://127.0.0.1:8000/accounts/payment-success/place-final-order/?selected_adrss_uid=${selected_adress_option}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}&razorpay_signature=${response.razorpay_signature}`;
+            },
+          };
+          var rzp1 = new Razorpay(options);
+          rzp1.on("payment.failed", function (response) {
+            window.location.href = `https://mrunalbooks.com/accounts/payment-failure/?description=${response.error.description}&source=${response.error.source}&reason=${response.error.reason}`;
+
+          });
+          rzp1.open();
+        }
+      },
+      error: function (error) {
+        console.error("An error occurred", error);
+      },
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    toggleSections();
+  });
+
+ 
+
+  $(document).on("click", ".radio-btn", function () {
+    toggleSections();
+  });
+
+  function toggleSections() {
+    var pickupSection = document.getElementById("pickup-section");
+    var deliverySection = document.getElementById("homeD-section");
+    var nonSection = document.getElementById("none-selected-section");
+
+    var pickupOption = document.getElementById("pickup-radio");
+    var homedeliveryOption = document.getElementById("homeD-radio");
+
+    const radioButtons = document.querySelectorAll('input[name="delivery"]');
+
+    if (pickupOption.checked) {
+      pickupSection.style.display = "block";
+      deliverySection.style.display = "none";
+      nonSection.style.display = "none";
+
+      $("#home_delivery_charge_span").text(0);
+
+      $.ajax({
+        type: "GET",
+        url: "{% url 'get_all_prices_ajax' %}",
+        success: function (response) {
+          $(".final-total-price").text(response.cart_total_price);
+        },
+        error: function (error) {
+          console.error("An error occurred", error);
+        },
+      });
+    } else if (homedeliveryOption.checked) {
+      pickupSection.style.display = "none";
+      nonSection.style.display = "none";
+      deliverySection.style.display = "block";
+
+      $("#home_delivery_charge_span").html(
+        "{{request.user.profile.login_type.home_delivery_price}}"
+      );
+
+      $.ajax({
+        type: "GET",
+        url: "{% url 'get_all_prices_ajax' %}",
+        success: function (response) {
+          $(".final-total-price").text(
+            response.cart_total_price + response.home_delivery_charge
+          );
+        },
+        error: function (error) {
+          console.error("An error occurred", error);
+        },
+      });
+    } else {
+      pickupSection.style.display = "none";
+      deliverySection.style.display = "none";
+      nonSection.style.display = "block";
+    }
+  }
+
+  $(document).on("click", "#coupon-submit", function () {
+    event.preventDefault();
+
+    var formData = $("#couponForm").serialize();
+    $.ajax({
+      type: "POST",
+      url: "{% url 'add_coupon_ajax' %}",
+      data: formData,
+
+      success: function (response) {
+        var template = ``;
+
+        if (response.status == false) {
+          template = `
+            <div class="alert alert-warning" role="alert">
+              ${response.messages}
+            </div>
+              `;
+
+          $("#alert-container").html(template);
+        } else {
+          template = `
+            <div class="alert alert-success" role="alert">
+              ${response.messages}
+            </div>
+              `;
+          $("#alert-container").html(template);
+
+          var template2 = `
+              <div class="mb-2">
+                <a id="{{cart.uid}}" class="btn remove-coupon-btn">${response.coupon_name}
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                  </svg>
+                </a>
+                </div>
+                `;
+
+          $("#coupons-existed").html(template2);
+
+          var template3 = `
+                <li id="fee-off" class="list-group-item d-flex justify-content-between align-items-start">
+                <div class="me-auto">
+                  <div>Coupon Discount</div>
+                </div>
+                <span id="discount-price">Rs. ${response.coupon_discount_price}</span>
+              </li>
+                `;
+
+          $("#coupon-discount-price-box").html(template3);
+
+          var pickupOption = document.getElementById("pickup-radio");
+          var homedeliveryOption = document.getElementById("homeD-radio");
+          if (pickupOption.checked) {
+            $(".final-total-price").text(response.cart_total_price);
+          } else if (homedeliveryOption.checked) {
+            $(".final-total-price").text(
+              response.cart_total_price + response.home_delivery_charge
+            );
+          }
+        }
+      },
+
+      error: function (error) {
+        console.error("An error occurred", error);
+      },
+    });
+  });
+
+  $(document).on("click", ".remove-coupon-btn", function () {
+    event.preventDefault();
+
+    $.ajax({
+      type: "GET",
+      url: "{% url 'remove_coupon_ajax' %}",
+      data: { cart_uid: this.id },
+
+      success: function (response) {
+        if (response.status == true) {
+          template = `
+            <div class="alert alert-warning" role="alert">
+              ${response.messages}
+            </div>
+              `;
+          $("#alert-container").html(template);
+          $("#coupons-existed").html(``);
+          $("#coupon-discount-price-box").html(``);
+
+          var pickupOption = document.getElementById("pickup-radio");
+          var homedeliveryOption = document.getElementById("homeD-radio");
+          if (pickupOption.checked) {
+            $(".final-total-price").text(response.cart_total_price);
+          } else if (homedeliveryOption.checked) {
+            $(".final-total-price").text(
+              response.cart_total_price + response.home_delivery_charge
+            );
+          }
+        }
+      },
+      error: function (error) {
+        console.error("An error occurred", error);
+      },
+    });
+  });
+
+  // testing
+  $('input[type="radio"][name="address"]').on('click', function(){
+      var idstr = this.id.slice(6);
+      console.log('Selected option id huu: ' + idstr);
+      document.getElementById("selected_adress_option").value = idstr;
+      var template = `<button type="submit" id="rzp-button1" class="btn pt-3 pb-3">Place Order</button>`;
+      $("#rzp-button1-container").html("");
+      $("#rzp-button1-container").html(template);
+  });
+
+
+
+  $(document).on("click", ".wiki-title", function () {
+    idstr = this.id;
+    document.getElementById("selected_adress_option").value = idstr;
+
+    var template = `<button type="submit" id="rzp-button1" class="btn pt-3 pb-3">Place Order</button>`;
+    $("#rzp-button1-container").html("");
+    $("#rzp-button1-container").html(template);
+  });
+
+  $(document).on("click", ".free-delivery-advice", function () {
+    $("#pickup-radio").prop("checked", true);
+    toggleSections();
+  });
+</script>
+
+{% endblock %}

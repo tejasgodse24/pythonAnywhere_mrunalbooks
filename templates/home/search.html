@@ -1,0 +1,76 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%}
+{% load static %}
+<link rel="stylesheet" href="/media/css/login.css">
+
+
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css" />
+
+{% endblock %}
+
+
+{% block body%}
+
+<section id="contact-section">
+  <div class="container-fluid">
+
+    <div class="container contact-container">
+      <h1 class="heading"> Search Books</h1>
+      {% include 'base/alert.html' %}
+
+      <div class="search-container">
+        <form method="post">
+          {% csrf_token %}
+          <div id="autocomplete" class="autocomplete">
+            <input class="autocomplete-input" name="search_query"
+              placeholder="search by Book Name/Author/Publication/isbn/Genre..." aria-label="Search Book by name" />
+            <ul class="autocomplete-result-list"></ul>
+          </div>
+        </form>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% block js %}
+<script>
+  new Autocomplete('#autocomplete', {
+    search: input => {
+      const url = `/get-search-suggestions/?search=${input}`;
+      return new Promise(resolve => {
+        fetch(url)
+          .then(response => response.json())
+          .then(data => {
+            resolve(data.payload);
+          })
+      })
+    },
+
+    renderResult: (result, props) => {
+
+      let group = ``;
+      if (result.index % 3 === 0) {
+        group = `<li class="group">Group</li>`;
+      }
+      return `
+      ${group}
+      <li ${props}>
+        <div id="" class="wiki-title">
+        <a href="/search-results/${result.title}"><b>${result.title}</b> </a>
+         </div>
+      `;
+
+
+    },
+
+    getResultValue: result => result.title,
+  })
+</script>
+{% endblock%}
+
+{% endblock %}

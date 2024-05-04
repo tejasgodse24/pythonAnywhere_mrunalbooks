@@ -1,0 +1,78 @@
+
+
+/*-------------------------------------- list section --------------------------------------------------*/
+#list-section{
+    padding: 8rem 8%;
+}
+
+#list-section .heading{
+    margin: 5% auto;
+}
+
+#list-section img{
+    margin: 6% auto;
+    border-radius: 10px;
+    /* border-radius: 100%; */
+    max-width: 15vh;
+}
+
+#list-section .list-buttons{
+    margin: 5% auto;
+}
+
+#list-section  .btn{
+    margin: auto 5%;
+}
+
+#list-section  .product-price-info .product-price{
+  font-size: 2rem;
+}
+#list-section .product-price-info .product-fake-price{
+  font-size: 1.3rem;
+  text-decoration: line-through;
+  color: gray;
+}
+#list-section .product-price-info .product-discount{
+  font-size: 1.2rem;
+  color: green;
+}
+
+
+
+
+
+/*------------------------------------- media query ------------------------------------------*/
+@media screen and (max-width : 600px) {
+  .btn{
+    font-size: 0.7rem;
+  }
+  #list-section{
+    padding: 7rem 2%;
+    text-align: left;
+    font-size: 0.8rem;
+  }
+  #list-section  .product-price-info .product-price{
+    font-size: 1rem;
+  }
+  #list-section .product-price-info .product-fake-price{
+    font-size: 0.8rem;
+  }
+  #list-section .product-price-info .product-discount{
+    font-size: 0.8rem;
+  }
+  #list-section .book-title{
+    font-size: 0.8rem;
+    /* line-height: 1.2; */
+  }
+  #list-section .book-author{
+    font-size: 0.7rem;
+  }
+  
+#list-section img{
+  width: 20vw;
+  height: auto;
+  /* max-width: 15vh; */
+}
+
+}
+

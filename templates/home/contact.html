@@ -1,0 +1,92 @@
+{% extends 'base/basic.html' %} {% block css%} {% load static %}
+<link rel="stylesheet" href="/media/css/contact.css" />
+
+{% endblock %} {% block body%}
+
+<div class="loader">
+  <div class="spinner-border" role="status" id="spinner">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<section id="contact-section">
+  <div class="container-fluid">
+    <div class="container contact-container">
+      <h1 class="heading">Contact Us</h1>
+
+      <form method="post" id="contact-form">
+        {% csrf_token %} {% include "base/alert.html" %}
+        <div class="row row-cols-1 g-4">
+          <div class="col">
+            <div class="md-form">
+              <input required placeholder="Name" type="text" id="name" name="name" class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <input required placeholder="Email" type="email" id="email" name="email" class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <input required placeholder="Phone No." type="tel" pattern="[0-9]{10}" id="phone" name="phone"
+                class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <input required placeholder="Subject" type="text" id="subject" name="subject" class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <input required placeholder="message" type="text" id="message" name="message" class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <button type="submit" id="submit-btn" class="btn">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="whats-app-btn">
+    <a target="_blank" href="https://wa.me/+911111111111?text=hello">
+      <img src="/media/home/WhatsAppButtonGreenSmall.png" alt="" />
+    </a>
+  </div>
+  <div id="contact-details">
+    <p>Contact Number : +91 1111111111</p>
+    <p>Contact Mail : mrunalbooks1@gmail.com</p>
+  </div>
+</section>
+
+{% endblock %}
+{% block js %}
+<script>
+  window.addEventListener("load", function () {
+    const loader = document.querySelector(".loader");
+    loader.classList.add("loader-hidden");
+  });
+
+  $(document).on("click", "#submit-btn", function () {
+    const loader = document.querySelector(".loader");
+    loader.classList.remove("loader-hidden");
+  });
+  const form = document.getElementById('contact-form');
+  const inputElements = form.querySelectorAll('input');
+  inputElements.forEach(function (input) {
+    input.addEventListener('focus', function () {
+      const loader = document.querySelector(".loader");
+      loader.classList.add("loader-hidden");
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends 'custom_admin/basic.html' %} 
+
+{% block body %}
+<div class="row">
+<div class="col-md-6 grid-margin stretch-card">
+<div class="card">
+    <div class="card-body">
+      <p class="card-title mb-0">Prime Membership Prices</p>
+      <div class="table-responsive">
+        <table class="table table-striped table-borderless">
+          <thead>
+            <tr>
+              <th>No. Of Month</th>
+              <th>Price</th>
+            </tr>  
+          </thead>
+          <tbody>
+            <tr>
+              <td>Yearly</td>
+              <td class="font-weight-bold">Rs. {{prime_prices.yearly}}</td>
+            </tr>
+            <tr>
+                <td>Six Months</td>
+                <td class="font-weight-bold">Rs. {{prime_prices.six_months}}</td>
+            </tr>
+            <tr>
+                <td>Three Months</td>
+                <td class="font-weight-bold">Rs. {{prime_prices.three_months}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <div class="col-md-6 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+          <p class="card-title mb-0">Dealer Membership Prices</p>
+          <div class="table-responsive">
+            <table class="table table-striped table-borderless">
+              <thead>
+                <tr>
+                  <th>No. Of Month</th>
+                  <th>Price</th>
+                </tr>  
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Yearly</td>
+                  <td class="font-weight-bold">Rs. {{dealer_prices.yearly}}</td>
+                </tr>
+                <tr>
+                    <td>Six Months</td>
+                    <td class="font-weight-bold">Rs. {{dealer_prices.six_months}}</td>
+                </tr>
+                <tr>
+                    <td>Three Months</td>
+                    <td class="font-weight-bold">Rs. {{dealer_prices.three_months}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-center">
+              <a target="_blank" href="/custom-admin-management/memberships-management/accounts/membership_plan_prices/" type="button" class=" mx-4  btn btn-primary btn-icon-text">
+                Edit Prices
+              </a>
+              <a target="_blank" href="/custom-admin-management/memberships-management/accounts/membershiptype/" type="button" class=" mx-4 btn btn-primary btn-icon-text">
+                Edit Memberships
+              </a>
+              </div>
+              </div>
+              </div>
+              </div>
+  </div>
+
+{% endblock %}

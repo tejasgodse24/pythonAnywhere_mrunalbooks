@@ -1,0 +1,99 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%}
+{% load static %}
+<link rel="stylesheet" href="/media/css/contact.css">
+<link rel="stylesheet" href="/media/css/edit_address.css">
+
+
+{% endblock %}
+
+
+{% block body%}
+
+
+
+<section id="contact-section">
+
+
+    <div class="container-fluid">
+
+
+
+        <div class="container contact-container">
+
+
+            <h1 class="heading"> User Profile </h1>
+            <div class="edit-address-btn-profile"><span id="edit-profile-btn"><b>Edit</b></span></div>
+
+            <form method="post" class="row row-cols-1 g-4">
+                {% csrf_token %}
+                <div class="col">
+                    <div class="md-form ">
+                        <label for="fname">First Name</label>
+                        <input placeholder="First Name" required value="{{request.user.first_name}}" disabled
+                            type="text" id="fname" name="fname" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="md-form ">
+                        <label for="lname">Last Name</label>
+                        <input placeholder="Last Name" required value="{{request.user.last_name}}" disabled type="text"
+                            id="lname" name="lname" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="md-form ">
+                        <label for="mobile_number">Mobile No.</label>
+                        <input placeholder="Phone No." value="{{request.user.profile.mobile_number}}" disabled
+                            type="text" id="mobile_number" name="mobile_number" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="md-form ">
+                        <label for="email">Email</label>
+                        <input placeholder="Email" value="{{request.user.username}}" disabled type="text" id="email"
+                            name="email" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="md-form ">
+                        <label for="membership">MemberShip Status</label>
+                        <input placeholder="membership" value="{{request.user.profile.login_type}}" disabled type="text"
+                            id="membership" name="membership" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col">
+                    <button id="profile-submit" name="profile-submit" disabled type="submit" class="btn">
+                        Edit Profile
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).on('click', '#edit-profile-btn', function () {
+        $("#fname").removeAttr("disabled");
+        $("#lname").removeAttr("disabled");
+        $("#profile-submit").removeAttr("disabled");
+
+        $("#id_first_name").focus();
+
+    })
+</script>
+{% endblock %}

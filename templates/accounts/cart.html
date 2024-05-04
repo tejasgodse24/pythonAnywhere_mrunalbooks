@@ -1,0 +1,393 @@
+{% extends 'base/basic.html' %}
+{% load mathfilters %}
+
+{% block css%}
+<link rel="stylesheet" href="/media/css/cart.css">
+
+
+{% endblock %}
+
+
+{% block body%}
+
+
+
+
+
+<section id="cart-section">
+  {% if cart %}
+  <div class="container">
+    <!-- row -->
+    <div class="row">
+      <div class="col-12">
+        <!-- card -->
+        <div class="card border-0 ">
+          <div>
+            <h1 class="fw-bold heading">Shop Cart</h1>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="row">
+
+      <div class="col-lg-8 col-md-7">
+        <div class="">
+          <ul id="whole-cart-list" class="list-group list-group-flush">
+
+
+            <li class="list-group-item py-3 py-lg-0 px-0 border-top">
+
+              <div class="row mt-2 mb-2 align-items-center">
+
+                <div class="col-3 col-md-2">
+                  <span class="fw-bold">Image</span>
+                </div>
+
+
+                <div class="col-4 col-md-5">
+
+                  <span class="fw-bold">Title and Description</span>
+                </div>
+
+
+                <div class="col-3 col-md-3 col-lg-2">
+                  <span class="fw-bold">Quantity</span>
+
+                </div>
+
+
+                <div class="col-2 text-lg-end text-start text-md-end col-md-2">
+                  <span class="fw-bold">Price</span>
+                </div>
+
+              </div>
+
+
+            </li>
+
+            {% for item in cart %}
+
+            <li id="li-{{item.product.uid}}" class="list-group-item py-3 py-lg-0 px-0 border-top">
+
+              <div class="row align-items-center g-2">
+
+                <div class="col-3 col-md-2">
+                  <img src="/media/{{item.product.image}}" alt="Ecommerce" class="img-fluid">
+                </div>
+
+
+                <div class="col-4 col-md-5">
+
+                  <a href="/product/{{item.product.slug}}" class="text-inherit">
+                    <div class="book-title" class="mb-0">{{item.product.title}}</div>
+                  </a>
+                  <span><small class="text-muted book-author">{{item.product.author}}</small></span>
+
+                  <div class="mt-2 small lh-1 ">
+                    <a id="{{item.product.uid}}" class="remove-all">
+                      <span class="me-1 align-text-bottom">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                          class="feather feather-trash-2 text-success">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2">
+                          </path>
+                          <line x1="10" y1="11" x2="10" y2="17"></line>
+                          <line x1="14" y1="11" x2="14" y2="17"></line>
+                        </svg></span><span class="text-muted">Remove</span>
+                    </a>
+                  </div>
+                </div>
+
+
+
+                <div class="col-3 col-md-3 col-lg-2 quantity-col">
+
+                  <a id="{{item.product.uid}}" class="btn minus">-</a>
+
+                  <span id="quantity-{{item.product.uid}}" class="book-quantity">{{item.quantity}}</span>
+                  <a id="{{item.product.uid}}" class="btn plus">+</a>
+
+                </div>
+
+
+                <div class="col-2 text-lg-end text-start text-md-end col-md-2 list-item-price">
+
+                  {% if request.user.profile.login_type.name == 'prime' %}
+                  <span id="quantity-price-{{item.product.uid}}" class="">Rs. {{item.quantity|mul:item.product.prime_price }}</span>
+                  {% elif request.user.profile.login_type.name == 'dealer' %}
+                  <span id="quantity-price-{{item.product.uid}}" class="">Rs. {{item.quantity|mul:item.product.dealer_price }}</span>
+                  {% else %}
+                  <span id="quantity-price-{{item.product.uid}}" class="">Rs. {{item.quantity|mul:item.product.normal_price }}</span>
+                  {% endif %}
+
+
+                </div>
+
+              </div>
+
+
+            </li>
+
+            {% endfor %}
+
+
+
+          </ul>
+          <!-- btn -->
+          <div class="d-flex justify-content-center list-buttons">
+            <a href="/search/" class="btn">Continue Shopping</a>
+          </div>
+
+        </div>
+      </div>
+
+
+      <!-- sidebar -->
+      <div class="col-12 col-lg-4 col-md-5">
+        <!-- card -->
+        <div class="mb-5 card ">
+          <div class="card-body p-6">
+
+
+
+            <!-- heading -->
+            {% include "base/alert.html" %}
+            <h2 class="h5 mb-2">Summary</h2>
+
+            <div class="card mb-2">
+              <!-- list group -->
+              <ul class="list-group list-group-flush">
+                <!-- list group item -->
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="me-auto">
+                    <div>Item Subtotal</div>
+
+                  </div>
+
+                  <span id="total-price-without-coupon">Rs.{{item_subtotal}}</span>
+
+
+                </li>
+
+
+
+                {% if user_cart.coupon %}
+                <!-- list group item -->
+                <div id="coupon-discount-price-box">
+                  <li id="fee-off" class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="me-auto">
+                      <div>Coupon Fee Off</div>
+
+                    </div>
+                    <span id="discount-price">Rs. {{user_cart.coupon.discount_price}}</span>
+                  </li>
+                </div>
+                {% endif %}
+                <!-- list group item -->
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                  <div class="me-auto">
+                    <div class="fw-bold">Total Amount</div>
+
+                  </div>
+
+                  <span id="" class="fw-bold final-total-price">Rs. {{total_pay}}</span>
+                </li>
+              </ul>
+
+            </div>
+            <div class="d-grid mb-1 mt-4">
+              <!-- btn -->
+              <a href="/accounts/final-purchase/" id="checkout-btn"
+                class="btn btn-lg d-flex justify-content-between align-items-center" type="submit">
+
+
+                <!-- Go to Checkout -->
+                Go to Checkout
+                <span id="final-total-price" class="fw-bold final-total-price">Rs. {{total_pay}}</span>
+
+              </a>
+            </div>
+            <!-- text -->
+            <p><small>By placing your order, you agree to be bound by the Freshcart <a href="#!">Terms of Service</a>
+                and <a href="#!">Privacy Policy.</a> </small></p>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- alert containeres -->
+
+    <div class="simple-alert-container" id="wishlist-add-alert">
+      <p id="simple-alert-message">Item is Addedd in Wishlist</p>
+    </div>
+    <div class="simple-alert-container" id="wishlist-remove-alert">
+      <p id="simple-alert-message">Item is removed from Wishlist</p>
+    </div>
+    <div class="simple-alert-container" id="cart-add-alert">
+      <p id="simple-alert-message">Item is Addedd in Cart</p>
+    </div>
+    <div class="simple-alert-container" id="cart-remove-alert">
+      <p id="simple-alert-message">Item is removed from Cart</p>
+    </div>
+
+  </div>
+
+  {% else %}
+
+  <div class="container">
+    <h1 class="heading mb-4"><b>Your Cart is Empty</b></h1>
+    <h5 class="">There are no items in your cart</h5>
+    <a class="btn" href="/#popularbook-section">Continue Shopping</a>
+  </div>
+
+  {% endif %}
+</section>
+
+
+
+{% endblock %}
+
+{% block js %}
+
+<script>
+
+
+  $(document).on('click', '.plus', function () {
+
+    idstr = this.id;
+
+    event.preventDefault();
+    $.ajax({
+      type: 'GET',
+      url: "{% url 'add_to_cart_ajax' %}",
+      data: { book_uid: this.id },
+
+      success: function (response) {
+        $('#cart-count').text(response.total_cart_count);
+        $('#quantity-' + idstr).text(response.cart_item_quantity);
+        $('#quantity-price-' + idstr).text('Rs. ' + response.cart_item_quantity_price);
+
+        $('#total-price-without-coupon').text('Rs. ' + response.get_cart_books_total);
+        $('.final-total-price').text('Rs. ' + response.cart_total_price);
+
+
+      },
+      error: function (error) {
+        console.error('An error occurred', error);
+      }
+    });
+
+  });
+
+
+
+
+  $(document).on('click', '.minus', function () {
+
+    idstr = this.id;
+
+    event.preventDefault();
+    $.ajax({
+      type: 'GET',
+      url: "{% url 'reduce_quantity_cart_item_ajax' %}",
+      data: { book_uid: this.id },
+
+      success: function (response) {
+
+        if (response.cart_item_quantity == 0) {
+          removeItem();
+          $("#cart-remove-alert").fadeIn();
+          setTimeout(function () {
+            $("#cart-remove-alert").fadeOut();
+          }, 2000);
+        }
+
+        $('#cart-count').text(response.total_cart_count);
+        $('#quantity-' + idstr).text(response.cart_item_quantity);
+        $('#quantity-price-' + idstr).text('Rs. ' + response.cart_item_quantity_price);
+
+        $('#total-price-without-coupon').text('Rs. ' + response.get_cart_books_total);
+        $('.final-total-price').text('Rs. ' + response.cart_total_price);
+
+
+
+        if (response.isCouponDismissed == true || response.total_cart_count == 0) {
+
+          location.reload();
+        }
+      },
+      error: function (error) {
+        console.error('An error occurred', error);
+      }
+    });
+
+  });
+
+
+  function removeItem() {
+    li_element = document.getElementById("li-" + idstr);
+    var u_list = document.getElementById("whole-cart-list");
+    u_list.removeChild(li_element);
+  }
+
+
+
+  $(document).on('click', '.remove-all', function () {
+
+    event.preventDefault();
+    idstr = this.id;
+
+
+    $.confirm({
+      title: 'Remove Item',
+      content: 'Are you sure you want to remove this item?',
+      typeAnimated: true,
+      buttons: {
+        remove: {
+          text: 'REMOVE', // text for button
+          btnClass: 'btn green-btn alert-btn', // class for the button
+          action: function () {
+
+            $.ajax({
+              type: 'GET',
+              url: "{% url 'remove_cart_item_ajax' %}",
+              data: { book_uid: idstr },
+              success: function (response) {
+                removeItem();
+                $('#cart-count').text(response.total_cart_count);
+
+                $('#total-price-without-coupon').text('Rs. ' + response.get_cart_books_total);
+                $('.final-total-price').text('Rs. ' + response.cart_total_price);
+
+                $("#cart-remove-alert").fadeIn();
+                setTimeout(function () {
+                  $("#cart-remove-alert").fadeOut();
+                }, 2000);
+
+                if (response.isCouponDismissed == true || response.total_cart_count == 0) {
+                  location.reload();
+                }
+              },
+              error: function (error) {
+                console.error('An error occurred', error);
+              }
+            });
+          }
+
+        },
+        close: {
+          text: 'CANCEL', // text for button
+          btnClass: 'btn alert-btn'
+        },
+      }
+    });
+
+  });
+</script>
+{% endblock %}

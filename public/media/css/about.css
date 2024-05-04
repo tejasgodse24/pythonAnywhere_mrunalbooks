@@ -1,0 +1,38 @@
+
+
+/* -------------------------------about section --------------------------------- */
+#about-section{
+    padding: 12rem 12% 3rem;
+}
+
+#about-section h1{
+    margin: 0% auto 2%;
+}
+
+
+/* -------------------------------features section --------------------------------- */
+
+#features {
+    position: relative;
+    background-color: #efefef;
+    color: black;
+  }
+  
+  .feature-title {
+    font-size: 1.5rem;
+  }
+  
+  .feature-box {
+    padding: 5%;
+  }
+  
+  .icon {
+    color: #ff0f33;
+    margin-bottom: 1rem;
+    font-size: 5rem;
+  }
+  
+  .icon:hover {
+    color: #ff4c68;
+  }
+  

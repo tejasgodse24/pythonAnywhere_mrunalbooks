@@ -1,0 +1,15 @@
+{% extends 'base/basic.html' %} {% block css%} {% load static %}
+<link rel="stylesheet" href="/media/css/login.css" />
+
+{% endblock %} {% block body%}
+
+<section id="contact-section" class="mb-5">
+  <div class="container-fluid">
+    <div class="container contact-container">
+      <h1 class=" mb-2">Notification</h1>
+      {% include "base/alert.html" %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

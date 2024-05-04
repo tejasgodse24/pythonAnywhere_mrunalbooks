@@ -1,0 +1,48 @@
+{% extends 'base/basic.html' %} {% block css%} {% load static %}
+<link rel="stylesheet" href="/media/css/login.css" />
+
+
+{% endblock %} {% block body%}
+
+<section id="contact-section" class="mb-5">
+  <div class="container-fluid">
+    <div class="container contact-container">
+      <h1 class=" mb-2">Log In</h1>
+
+      <form method="post">
+        {% include "base/alert.html" %}
+        {% csrf_token %}
+
+        <div class="row row-cols-1 g-4">
+          <div class="col">
+            <div class="md-form">
+              <input placeholder="Email" required type="email" id="email" name="email" class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <input placeholder="Password" required type="password" id="password" name="password"
+                class="form-control" />
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="md-form">
+              <button class="btn">Log In</button>
+              <div>
+                <span>Not Registered yet ? </span><a class="register-now" href="/accounts/register"><b>Register
+                    Now</b></a>
+              </div>
+              <div>
+                <a class="forgot-password" href="/accounts/forgot-password"><b>Forgot Password ?</b></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

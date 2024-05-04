@@ -1,0 +1,17 @@
+<form method="post">
+    {%csrf_token %}
+    {{ form.non_field_errors}}
+    {% for field in form %}
+    <div class="address-input-fields">
+        {{field.label_tag}} {{field}}
+    </div>
+    
+    <div class="errorlist"> {{field.errors|striptags}}</div>
+    {% endfor %}
+
+
+    <button name="address-submit" type="submit" class="btn">
+        Add/Edit Address
+    </button>
+
+</form>

@@ -1,0 +1,209 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%}
+{% load static %}
+<link rel="stylesheet" href="/media/css/login.css">
+<link rel="stylesheet" href="/media/css/search_results.css">
+<link rel="stylesheet" href="/media/css/books.css">
+
+
+
+<script src="https://unpkg.com/@trevoreyre/autocomplete-js"></script>
+<link rel="stylesheet" href="https://unpkg.com/@trevoreyre/autocomplete-js/dist/style.css" />
+
+{% endblock %}
+
+
+{% block body%}
+
+<section id="popularbook-section">
+  <div class="container-fluid">
+    <div class="container">
+      <div class="heading-div">
+        <h1 class="heading">{{heading}}</h1>
+
+      </div>
+      <div class="row viewall">
+
+      </div>
+      <div class="container">
+        
+        <div class="row row-cols-lg-6 row-cols-md-3 row-cols-sm-2 row-cols-2">
+
+          {% for book in books %}
+
+          <div class="col bookcell">
+            <div class="card">
+              <span class="favoruite-icon-container" id="favoruite-icon-container-{{book.uid}}">
+
+                {% if book.uid in user_wishlist_product_uids %}
+                <a href="/accounts/not-login-error/" class="red-icon" id="red-{{book.uid}}">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                    class="heart-gray bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                  </svg>
+                </a>
+                {% else %}
+                <a href="/accounts/not-login-error/" class="gray-icon" id="gray-{{book.uid}}">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#c2c2c2"
+                    class="heart-gray bi bi-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                      d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                  </svg>
+                </a>
+                {% endif %}
+
+
+              </span>
+
+            
+
+              <a href="/product/{{book.slug}}">
+                <div class="img-container">
+                  <div class="hover-div"></div>
+                  <img src="/media/{{book.image}}" alt="">
+                </div>
+                <div class="bookinfo mt-2">
+                  <p class="bookname">{{book.title|slice:"0:35"}}...</p>
+
+                  {% if book.author %}
+                  <p class="authorname">{{book.author}}</p>
+                  {% endif %}
+                </div>
+              </a>
+
+              <div class="price-info">
+
+                {% if request.user.profile.login_type.name == "prime" %}
+                <p class="price"> Rs.{{book.prime_price}}</p>
+                <span class="false-price ">Rs.{{book.mrp}}</span>
+                <span class="ms-2 percent"> {{book.prime_discount_percenatage}}% OFF</span>
+                <p class="family-membership">You are getting {{book.prime_discount_percenatage}}% Off for Prime
+                  membership</p>
+                {% elif request.user.profile.login_type.name == "dealer" %}
+                <p class="price"> Rs.{{book.dealer_price}}</p>
+                <span class="false-price ">Rs.{{book.mrp}}</span>
+                <span class="ms-2 percent"> {{book.dealer_discount_percenatage}}% OFF</span>
+                <p class="family-membership">You are getting {{book.dealer_discount_percenatage}}% Off for Dealer
+                  membership</p>
+
+                {% else %}
+                <p class="price"> Rs.{{book.normal_price}}</p>
+                <span class="false-price ">Rs.{{book.mrp}}</span>
+                <span class="ms-2 percent"> {{book.normal_discount_percenatage}}% OFF</span>
+                <a href="/accounts/show-membership-plans/" class="family-membership pascal-case-text"><b>Join Prime
+                    membership and get {{book.prime_discount_percenatage}}% Off</b><span
+                    class="prime-price ms-2"><b>Rs.{{book.prime_price}}</b></span></a>
+                {% endif %}
+              </div>
+
+
+            </div>
+          </div>
+
+
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}
+
+
+{% if request.user.is_authenticated %}
+
+{% block js %}
+
+<script>
+
+
+
+$(document).on('click', '.gray-icon', function () {
+
+event.preventDefault();
+idstr = this.id;
+idstr = idstr.slice(5);
+
+$.ajax({
+
+  type: 'GET',
+  url: "{% url 'add_to_wishlist_ajax' %}",
+  data: { book_uid: idstr },
+
+  success: function (response) {
+
+    var template = `
+<a class="red-icon" id="red-`+ idstr + `">
+              
+<svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+class="heart-gray bi bi-heart-fill" viewBox="0 0 16 16">
+<path fill-rule="evenodd"
+  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+</svg>
+</a>
+`;
+
+    $('#favoruite-icon-container-' + idstr).html(template);
+
+
+    $('#wishlist-count').text(response.total_wishlist_count);
+
+  },
+  error: function (error) {
+    console.error('An error occurred', error);
+  }
+});
+});
+
+
+
+$(document).on('click', '.red-icon', function () {
+
+event.preventDefault();
+idstr = this.id;
+idstr = idstr.slice(4);
+$.ajax({
+
+  type: 'GET',
+  url: "{% url 'remove_wishlist_item_ajax' %}",
+  data: { book_uid: idstr },
+
+  success: function (response) {
+
+
+    var template = `
+<a class="gray-icon" id="gray-`+ idstr + `">
+            
+<svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#c2c2c2"
+class="heart-gray bi bi-heart-fill" viewBox="0 0 16 16">
+<path fill-rule="evenodd"
+  d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+</svg>
+</a>
+`;
+
+    $('#favoruite-icon-container-' + idstr).html(template);
+
+
+    $('#wishlist-count').text(response.total_wishlist_count);
+
+
+  },
+  error: function (error) {
+    console.error('An error occurred', error);
+  }
+});
+});
+
+
+</script>
+{% endblock %}
+{% endif %}

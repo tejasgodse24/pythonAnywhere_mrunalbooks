@@ -1,0 +1,59 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%}
+{% load static %}
+<link rel="stylesheet" href="/media/css/contact.css">
+<link rel="stylesheet" href="/media/css/edit_address.css">
+<link rel="stylesheet" href="/media/css/show_address.css">
+
+{% endblock %}
+
+
+{% block body%}
+
+
+
+
+<section id="contact-section">
+
+
+  <div class="container-fluid">
+
+    <div class="container contact-container">
+
+      <h1 class="heading mb-5"> User Addressess </h1>
+      <div class="all-addrss-section" id="all-addrss-section">
+        {% include "base/alert.html" %}
+
+        {% for a in addrss %}
+        <div class="row row-cols-1 mb-3 pt-2 pb-2 shadow rounded">
+          <div class="col-2">
+            <p>{{forloop.counter}}.</p>
+          </div>
+          <div class="col-8 adrss-details">
+            <span>{{a.name}}</span> {% if a.is_default == 1 %} <span class="ms-3" id="default"><b>
+                [[default]]</b></span> {% endif %}
+            <p>{{a.adss2}} {{a.adss1}} {{a.area}} {{a.city}} {{a.state}} {{a.pincode}}</p>
+          </div>
+          <div class="col-2">
+            <a href="/accounts/user-address/edit-address/{{a.uid}}" class="btn edit-addrss-btn" id="{{a.uid}}">Edit</a>
+          </div>
+        </div>
+        {% endfor %}
+        <div>
+          <a href="/accounts/user-address/add-new-address" class="btn" id="new-addrss-btn">Add New</a>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}

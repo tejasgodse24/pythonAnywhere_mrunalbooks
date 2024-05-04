@@ -1,0 +1,31 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%}
+{% load static %}
+
+<link rel="stylesheet" href="/media/css/contact.css">
+<link rel="stylesheet" href="/media/css/edit_address.css">
+
+
+
+{% endblock %}
+
+
+{% block body%}
+
+
+    <!-- contact section -->
+    <section id="contact-section">
+        <div class="container-fluid">
+
+            <div class="container contact-container">
+            <h1 class="heading"> Edit Address</h1>
+            {% include "base/address_form.html" %}
+            
+            
+            </div>
+        </div>
+    </section>
+
+  {% endblock %}

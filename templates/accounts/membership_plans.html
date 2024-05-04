@@ -1,0 +1,207 @@
+{% extends 'base/basic.html' %}
+{% load mathfilters %}
+
+{% block css%}
+<link rel="stylesheet" href="/media/css/membership_plans.css">
+
+
+{% endblock %}
+
+
+{% block body%}
+
+
+
+<section id="membership_plans-section">
+  <div class="container-fluid">
+    {% include "base/alert.html" %}
+
+    <div class="mt-5 text-center">
+      <h1 class="display-5 fw-bold text-body-emphasis">Prime MemberShip</h1>
+      <div class="col-lg-6 mx-auto">
+
+      </div>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="row py-5 g-4 row-cols-md-3 row-cols-1">
+
+        <div class="col form-check">
+          <input class="form-check-input prime-radio" type="radio" name="membership-radio-group" id="prime-year"
+            value="prime-year">
+          <label class="form-check-label membership-radio-label" for="prime-year">
+            <div class="plan-card">
+              <h3 class=" text-body-emphasis">Yearly</h3>
+              <p><span class="plan-fake-price">Rs. {{ 100|add:prime_plan_prices.yearly }}</span> <span
+                  class="plan-original-price">Rs. {{prime_plan_prices.yearly}}</span></p>
+              <div class="membership-description">
+                <p>Free Home Delivery</p>
+                <p>40% Discount</p>
+              </div>
+            </div>
+          </label>
+        </div>
+        <div class="col form-check">
+          <input class="form-check-input prime-radio" type="radio" name="membership-radio-group" id="prime-six_month"
+            value="prime-six_months">
+          <label class="form-check-label membership-radio-label" for="prime-six_month">
+            <div class="plan-card">
+              <h3 class="text-body-emphasis">6 Months</h3>
+              <p><span class="plan-fake-price">Rs. {{ 100|add:prime_plan_prices.six_months }}</span> <span
+                  class="plan-original-price">Rs. {{prime_plan_prices.six_months}}</span></p>
+              <div class="membership-description">
+                <p>Free Home Delivery</p>
+                <p>40% Discount</p>
+              </div>
+
+
+
+            </div>
+          </label>
+        </div>
+        <div class="col form-check">
+          <input class="form-check-input prime-radio" type="radio" name="membership-radio-group" id="prime-three_month"
+            value="prime-three_months">
+          <label class="form-check-label membership-radio-label" for="prime-three_month">
+            <div class="plan-card">
+              <h3 class="text-body-emphasis">3 Months</h3>
+              <p><span class="plan-fake-price">Rs. {{ 100|add:prime_plan_prices.three_months }}</span> <span
+                  class="plan-original-price">Rs. {{prime_plan_prices.three_months}}</span></p>
+              <div class="membership-description">
+                <p>Free Home Delivery</p>
+                <p>40% Discount</p>
+              </div>
+
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2" id="prime-btn-container">
+      </div>
+    </form>
+
+  </div>
+
+
+ {% if dealer_plan_prices %}
+
+  <div class=" py-5 mt-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Dealer MemberShip</h1>
+    <div class="col-lg-6 mx-auto">
+
+    </div>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+    <div class="row py-5 g-4 row-cols-md-3 row-cols-1">
+
+      <div class="col form-check">
+        <input class="form-check-input dealer-radio" type="radio" name="membership-radio-group" id="dealer-year"
+          value="dealer-year">
+        <label class="form-check-label membership-radio-label" for="dealer-year">
+          <div class="plan-card">
+            <h3 class=" text-body-emphasis">Yearly</h3>
+            <p><span class="plan-fake-price">Rs. {{ 100|add:dealer_plan_prices.yearly }}</span> <span
+                class="plan-original-price">Rs. {{dealer_plan_prices.yearly}}</span></p>
+            <div class="membership-description">
+              <p>Free Home Delivery</p>
+              <p>40% Discount</p>
+            </div>
+          </div>
+        </label>
+      </div>
+      <div class="col form-check">
+        <input class="form-check-input dealer-radio" type="radio" name="membership-radio-group" id="dealer-six_month"
+          value="dealer-six_months">
+        <label class="form-check-label membership-radio-label" for="dealer-six_month">
+          <div class="plan-card">
+            <h3 class="text-body-emphasis">6 Months</h3>
+            <p><span class="plan-fake-price">Rs. {{ 100|add:dealer_plan_prices.six_months }}</span> <span
+                class="plan-original-price">Rs. {{dealer_plan_prices.six_months}}</span></p>
+            <div class="membership-description">
+              <p>Free Home Delivery</p>
+              <p>40% Discount</p>
+            </div>
+
+
+          </div>
+        </label>
+      </div>
+      <div class="col form-check">
+        <input class="form-check-input dealer-radio" type="radio" name="membership-radio-group" id="dealer-three_month"
+          value="dealer-three_months">
+        <label class="form-check-label membership-radio-label" for="dealer-three_month">
+          <div class="plan-card">
+            <h3 class="text-body-emphasis">3 Months</h3>
+            <p><span class="plan-fake-price">Rs. {{ 100|add:dealer_plan_prices.three_months }}</span> <span
+                class="plan-original-price">Rs. {{dealer_plan_prices.three_months}}</span></p>
+            <div class="membership-description">
+              <p>Free Home Delivery</p>
+              <p>40% Discount</p>
+            </div>
+
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="d-grid gap-2" id="dealer-btn-container">
+    </div>
+  </form>
+  {% endif %}
+
+</section>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+{% endblock %}
+
+{% block js %}
+<script>
+
+  payment();
+
+  $(document).on('click', '.membership-radio-label', function () {
+
+    var template1 = `<button class="btn" id="dealer-pay-btn" name="dealer-pay-btn" type="submit">Pay Now</button>`;
+    var template2 = `<button class="btn" id="prime-pay-btn" name="prime-pay-btn" type="submit">Pay Now</button>`;
+    $('#prime-btn-container').html(template2);
+    $('#dealer-btn-container').html(template1);
+
+
+  })
+
+  function payment() {
+    payment_mode = "{{payment_mode}}"
+    if (payment_mode == 'True') {
+      var options = {
+        "key": "rzp_test_rvrFdgkjIsvvnd",
+        "amount": "{{payment.amount}}",
+        "currency": "INR",
+        "name": "Ecomm",
+        "description": "Test Transaction",
+        "order_id": "{{payment.id}}",
+        "handler": function (response) {
+          // window.location.href = `http://127.0.0.1:8000/accounts/payment-success/prime-membership/?membership_name={{membership_name}}&membership_time={{membership_time}}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}&razorpay_signature=${response.razorpay_signature}`;
+          window.location.href = `https://mrunalbooks.com/accounts/payment-success/prime-membership/?membership_name={{membership_name}}&membership_time={{membership_time}}&razorpay_payment_id=${response.razorpay_payment_id}&razorpay_order_id=${response.razorpay_order_id}&razorpay_signature=${response.razorpay_signature}`;
+
+        },
+
+      };
+      var rzp1 = new Razorpay(options);
+      rzp1.on('payment.failed', function (response) {
+
+        // window.location.href = `http://127.0.0.1:8000/accounts/payment-failure/?description=${response.error.description}&source=${response.error.source}&reason=${response.error.reason}`;
+        window.location.href = `https://mrunalbooks.com/accounts/payment-failure/?description=${response.error.description}&source=${response.error.source}&reason=${response.error.reason}`;
+
+      });
+      window.onload = rzp1.open();
+    }
+  }
+
+
+
+</script>
+{% endblock %}

@@ -1,0 +1,440 @@
+{% extends 'base/basic.html' %}
+
+
+{% block css%}
+{% load static %}
+
+<link rel="stylesheet" href="/media/css/product.css">
+
+{% endblock %}
+
+
+{% block body%}
+
+
+
+<section id="product-section">
+  <div class="container-fluid">
+    <div class="row product-view row-cols-lg-2 row-cols-1">
+
+      <div class="col">
+
+        <img class="product-image" src="/media/{{book.image}}" alt="">
+
+
+      </div>
+
+      <div class="col">
+
+        <h1 class="heading mt-3">{{book.title}}</h1>
+        <span id="wishlist-container">
+          {% if wishlist_item.product.uid == book.uid %}
+          <a class="btn remove-to-wishlist">Remove from Favourite
+            <i class="bi bi-heart"></i>
+          </a>
+          {% else %}
+
+          <a href="/accounts/not-login-error/" class="btn add-to-wishlist">Add to Favourite
+            <i class="bi bi-heart"></i>
+          </a>
+          {% endif %}
+        </span>
+
+        <span id="cart-container">
+          {% if cart_item.product.uid == book.uid %}
+
+          <a class="btn minus">-</a>
+
+          <span class="fw-bold">{{cart_item.quantity}}</span>
+
+          <a class="btn plus cart-btn">+</a>
+
+
+          {% else%}
+
+          <a href="/accounts/not-login-error/" class="btn cart-btn">Add to Cart
+
+            <i class="bi bi-cart2"></i>
+          </a>
+
+
+          {% endif %}
+        </span>
+
+        <hr>
+
+        <div class="product-price-info">
+
+          <div class="price-info">
+
+            {% if request.user.profile.login_type.name == "prime" %}
+            <span class="product-price me-2"> Rs.{{book.prime_price}}</span>
+            <span class="product-fake-price me-2">Rs.{{book.mrp}}</span>
+            <span class="product-discount"><b> {{book.prime_discount_percenatage}}%OFF</b></span>
+            <p class="membership-script">You are getting {{book.prime_discount_percenatage}}% Off for Prime membership
+            </p>
+            {% elif request.user.profile.login_type.name == "dealer" %}
+            <span class="product-price me-2"> Rs.{{book.dealer_price}}</span>
+            <span class="product-fake-price me-2">Rs.{{book.mrp}}</span>
+            <span class="product-discount"><b> {{book.dealer_discount_percenatage}}%OFF</b></span>
+            <p class="membership-script">You are getting {{book.dealer_discount_percenatage}}% Off for Dealer membership
+            </p>
+            {% else %}
+            <span class="product-price me-2"> Rs.{{book.normal_price}}</span>
+            <span class="product-fake-price me-2">Rs.{{book.mrp}}</span>
+            <span class="product-discount"><b> {{book.normal_discount_percenatage}}% OFF </b></span>
+            <a href="/accounts/show-membership-plans/" class="membership-link"><b>Join Prime membership and get
+                {{book.prime_discount_percenatage}}% Off</b><span class="prime-price ms-2"><b>Rs.{{book.prime_price}}</b></span></a>
+            {% endif %}
+
+          </div>
+          <hr>
+
+          <div class="row">
+            <div class="detailes">
+              <h3 class="heading">
+                Book Details
+              </h3>
+
+              <ul class="list-group list-group-flush" id="book-details-list">
+
+                {% if book.author %}
+                <li class="list-group-item ">
+                  <span class="col">Book Author : </span>
+                  <a href="/author/{{book.author.slug}}" class="col"><b>{{book.author}}</b></a>
+                </li>
+                {% endif %}
+                <li class="list-group-item">
+                  <span class="col">Publication : </span>
+                  <a href="/publication/{{book.publication_id.slug}}" class="col"><b>{{book.publication_id}}</b></a>
+                </li>
+                {% if book.publication_year %}
+                <li class="list-group-item">
+                  <span class="col">Publication Year : </span>
+                  <span class="col"><b>{{book.publication_year}}</b></span>
+                </li>
+                {% endif %}
+                {% if book.isbn %}
+                <li class="list-group-item">
+                  <span class="col">Book ISBN : </span>
+                  <span class="col"><b>{{book.isbn}}</b></span>
+                </li>
+                {% endif %}
+                <li class="list-group-item">
+                  <span class="col">Book category : </span>
+                  <a href="/categories/{{book.categories.first.slug}}" class="col"><b>{{book.categories.first}}</b></a>
+                </li>
+                <li class="list-group-item">
+                  <span class="col">Sub category : </span>
+                  <span class="col">
+                    {% for s in book.subcategories.all %}
+                    <a href="/subcategories/{{s.slug}}" class="col"><b>{{s}} ,</b></a>
+                    {% endfor %}
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+</section>
+
+
+<section id="popularbook-section">
+  <div class="container-fluid">
+    <div class="container">
+
+
+      <div class="container">
+        <div class="heading-div">
+          <h1 class="heading">Reccomended Books</h1>
+        </div>
+        <div class="row row-cols-lg-6 row-cols-md-3 row-cols-sm-2 row-cols-2">
+
+         
+          {% for book in reccomended_books %}
+
+            <div class="col bookcell">
+              <div class="card">
+                <span class="favoruite-icon-container" id="favoruite-icon-container-{{book.uid}}">
+
+                  {% if book.uid in user_wishlist_product_uids %}
+                  <a href="/accounts/not-login-error/" class="red-icon" id="red-{{book.uid}}">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                      class="heart-gray bi bi-heart-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                    </svg>
+                  </a>
+                  {% else %}
+                  <a href="/accounts/not-login-error/" class="gray-icon" id="gray-{{book.uid}}">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#c2c2c2"
+                      class="heart-gray bi bi-heart-fill" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd"
+                        d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                    </svg>
+                  </a>
+                  {% endif %}
+
+
+                </span>
+
+
+                <a href="/product/{{book.slug}}">
+                  <div class="img-container">
+                    <div class="hover-div"></div>
+                    <img src="/media/{{book.image}}" alt="">
+                  </div>
+                  <div class="bookinfo mt-2">
+                    <p class="bookname">{{book.title|slice:"0:35"}}...</p>
+
+                    {% if book.author %}
+                    <p class="authorname">{{book.author}}</p>
+                    {% endif %}
+                  </div>
+                </a>
+
+                <div class="price-info">
+
+                  {% if request.user.profile.login_type.name == "prime" %}
+                  <p class="price"> Rs.{{book.prime_price}}</p>
+                  <span class="false-price ">Rs.{{book.mrp}}</span>
+                  <span class="ms-2 percent"> {{book.prime_discount_percenatage}}% OFF</span>
+                  <p class="family-membership">You are getting {{book.prime_discount_percenatage}}% Off for Prime
+                    membership</p>
+                  {% elif request.user.profile.login_type.name == "dealer" %}
+                  <p class="price"> Rs.{{book.dealer_price}}</p>
+                  <span class="false-price ">Rs.{{book.mrp}}</span>
+                  <span class="ms-2 percent"> {{book.dealer_discount_percenatage}}% OFF</span>
+                  <p class="family-membership">You are getting {{book.dealer_discount_percenatage}}% Off for Dealer
+                    membership</p>
+
+                  {% else %}
+                  <p class="price"> Rs.{{book.normal_price}}</p>
+                  <span class="false-price ">Rs.{{book.mrp}}</span>
+                  <span class="ms-2 percent"> {{book.normal_discount_percenatage}}% OFF</span>
+                  <a href="/accounts/show-membership-plans/" class="family-membership pascal-case-text"><b>Join Prime
+                      membership and get {{book.prime_discount_percenatage}}% Off</b><span
+                      class="prime-price ms-2"><b>Rs.{{book.prime_price}}</b></span></a>
+                  {% endif %}
+                </div>
+
+
+              </div>
+            </div>
+
+
+            {% endfor %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<div class="simple-alert-container" id="wishlist-add-alert">
+  <p id="simple-alert-message">Item is Addedd in Wishlist</p>
+</div>
+<div class="simple-alert-container" id="wishlist-remove-alert">
+  <p id="simple-alert-message">Item is removed from Wishlist</p>
+</div>
+<div class="simple-alert-container" id="cart-add-alert">
+  <p id="simple-alert-message">Item is Addedd in Cart</p>
+</div>
+<div class="simple-alert-container" id="cart-remove-alert">
+  <p id="simple-alert-message">Item is removed from Cart</p>
+</div>
+
+
+</div>
+
+</div>
+</section>
+
+{% endblock %}
+
+
+{% block js %}
+
+{% if request.user.is_authenticated %}
+
+<script>
+
+  $("#{{request.user.profile.login_type}}").attr("checked", "checked");
+
+  $(document).on('click', '.cart-btn', function () {
+
+    event.preventDefault();
+    $.ajax({
+
+      type: 'GET',
+      url: "{% url 'add_to_cart_ajax' %}",
+      data: { book_uid: "{{book.uid}}" },
+      success: function (response) {
+
+        $('#cart-count').text(response.total_cart_count);
+
+        var template = `
+        
+        <a class="btn minus">-</a>
+
+        <span class="fw-bold">` + response.cart_item_quantity + `</span>
+
+        <a class="btn plus cart-btn">+</a>
+        `;
+        $('#cart-container').html(template);
+
+        $("#cart-add-alert").fadeIn();
+        setTimeout(function () {
+          $("#cart-add-alert").fadeOut();
+        }, 2000);
+
+      },
+      error: function (error) {
+        console.error('An error occurred', error);
+      }
+    });
+
+  });
+
+  $(document).on('click', '.minus', function () {
+
+    event.preventDefault();
+    $.ajax({
+
+      type: 'GET',
+      url: "{% url 'reduce_quantity_cart_item_ajax' %}",
+      data: { book_uid: "{{book.uid}}" },
+
+      success: function (response) {
+
+
+        $('#cart-count').text(response.total_cart_count);
+
+        if (response.cart_item_quantity == 0) {
+          var template = `
+        <a class="btn cart-btn">Add to Cart
+
+        <i class="bi bi-cart2"></i>
+        </a>
+        `;
+          $('#cart-container').html(template);
+
+          $("#cart-remove-alert").fadeIn();
+          setTimeout(function () {
+            $("#cart-remove-alert").fadeOut();
+          }, 2000);
+        }
+        else {
+          var template = `
+        
+        <a class="btn minus">-</a>
+
+        <span class="fw-bold">` + response.cart_item_quantity + `</span>
+
+        <a class="btn plus cart-btn">+</a>
+        `;
+          $('#cart-container').html(template);
+
+        }
+
+      },
+      error: function (error) {
+        console.error('An error occurred', error);
+      }
+    });
+  });
+
+
+
+  $(document).on('click', '.add-to-wishlist', function () {
+
+    event.preventDefault();
+    $.ajax({
+
+      type: 'GET',
+      url: "{% url 'add_to_wishlist_ajax' %}",
+      data: { book_uid: "{{book.uid}}" },
+
+      success: function (response) {
+
+        var template = `
+    <a id="" class="btn remove-to-wishlist">Remove from Favourite
+      <i class="bi bi-heart"></i>
+    </a>
+  `;
+
+        $('#wishlist-container').html(template);
+
+
+        $('#wishlist-count').text(response.total_wishlist_count);
+
+
+        $("#wishlist-add-alert").fadeIn();
+        setTimeout(function () {
+          $("#wishlist-add-alert").fadeOut();
+        }, 2000);
+
+
+
+      },
+      error: function (error) {
+        console.error('An error occurred', error);
+      }
+    });
+  });
+
+
+
+  $(document).on('click', '.remove-to-wishlist', function () {
+
+    event.preventDefault();
+    $.ajax({
+
+      type: 'GET',
+      url: "{% url 'remove_wishlist_item_ajax' %}",
+      data: { book_uid: "{{book.uid}}" },
+
+      success: function (response) {
+
+
+        var template = `
+      <a id="" class="btn add-to-wishlist">Add to Favourite
+        <i class="bi bi-heart"></i>
+      </a>
+  `;
+
+        $('#wishlist-container').html(template);
+
+
+        $('#wishlist-count').text(response.total_wishlist_count);
+
+        $("#wishlist-remove-alert").fadeIn();
+        setTimeout(function () {
+          $("#wishlist-remove-alert").fadeOut();
+        }, 2000);
+
+      },
+      error: function (error) {
+        console.error('An error occurred', error);
+      }
+    });
+  });
+
+
+
+
+
+
+
+</script>
+{% endif %}
+
+{% endblock %}

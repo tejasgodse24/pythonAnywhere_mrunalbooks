@@ -1,0 +1,48 @@
+
+
+/*-------------------------------------- cart section --------------------------------------------------*/
+#cart-section{
+    padding: 6rem 8%;
+}
+
+#cart-section .heading{
+    margin: 5% auto;
+}
+
+#cart-section img{
+    margin: 13% auto;
+    border-radius: 10px;
+}
+
+#cart-section .list-buttons{
+    margin: 5% auto;
+}
+
+#cart-section .list-buttons .btn{
+    margin: auto 5%;
+}
+
+
+
+
+/*------------------------------------- media query ------------------------------------------*/
+@media screen and (max-width : 600px) {
+    #cart-section{
+        padding: 6rem 2%;
+        font-size: 0.8rem;
+        text-align: left;
+
+    }
+    #cart-section .book-title{
+        font-size: 0.8rem;
+    }
+    #cart-section .book-quantity{
+        display: block;
+    }
+    #cart-section .quantity-col{
+        text-align: center;
+    }
+    #cart-section .list-item-price{
+        font-size: 1rem;
+    }
+}

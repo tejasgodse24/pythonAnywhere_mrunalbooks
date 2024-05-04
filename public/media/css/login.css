@@ -1,0 +1,41 @@
+
+/*-------------------------------------- contact form section --------------------------------------------------*/
+
+#contact-section .container-fluid{
+    padding: 10rem 15% 5% ;
+}
+
+#contact-section .contact-container{
+    padding: 5% 20%;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    border-radius: 20px;
+}
+
+#contact-section input{
+    
+    border-radius: 0;
+    border: none;
+    border-bottom: solid rgb(101, 99, 99) 1px;
+}
+#contact-section .register-now{
+    font-size: 1.2rem;
+    color:#ff0f33;
+}
+#contact-section .forgot-password{
+    color: #ff0f33;
+}
+
+
+
+/*---------------------------------  media query ---------------------------------------------*/
+@media screen and (max-width: 600px) {
+    #contact-section .container-fluid{
+        padding: 10rem 5% 5% ;
+    }
+    #contact-section .contact-container{
+        padding: 5% 0%;
+        box-shadow: none;
+        font-size: 0.8rem;
+    }
+    
+}

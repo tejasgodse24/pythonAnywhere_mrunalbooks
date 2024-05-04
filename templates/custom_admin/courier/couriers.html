@@ -1,0 +1,50 @@
+{% extends 'custom_admin/basic.html' %} 
+
+{% block body %}
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+
+<div class="card">
+    <div class="card-body">
+      <h4 class="card-title">All Courier Services</h4>
+     
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Name</th>
+              <th>Charge</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for c in all_couriers %}
+            <tr>
+              <td>{{forloop.counter}}</td>
+              <td>{{c.name}}</td>
+              <td><label class="badge badge-danger">Rs. {{c.courier_charge}}</label></td>
+              <td>{% if c.is_active == True %} Active {% else %} Not Active {% endif %}</td>
+            </tr>
+            {% endfor %}
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="col-md-12 grid-margin stretch-card">
+  <div class="card">
+      <div class="card-body">
+        <div class="d-flex justify-content-center">
+        <a target="_blank" href="/custom-admin-management/courier-services-management/" type="button" class=" mx-4  btn btn-primary btn-icon-text">
+          Manage Courier Services 
+        </a>
+        </div>
+        </div>
+        </div>
+        </div>
+</div>
+{% endblock %}
+

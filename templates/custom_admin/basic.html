@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Mrunalboks Admin</title>
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/media/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/media/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/media/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/media/favicon/site.webmanifest">
+
+  <link rel="stylesheet" href="/media/custom_admin/vendors/feather/feather.css">
+  <link rel="stylesheet" href="/media/custom_admin/vendors/ti-icons/css/themify-icons.css">
+  
+  <link rel="stylesheet" href="/media/custom_admin/css/vertical-layout-light/style.css">
+  <!-- endinject -->
+  {% block css %} {% endblock %}
+</head>
+<body>
+  <div class="container-scroller">
+    <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo mr-5" href="/custom-admin-management/dashboard"><img src="/media/logo/logo.svg" class="mr-2" alt="logo"/>Mrunalboks</a>
+        <!-- <a class="navbar-brand brand-logo-mini" href="/custom-admin-management/dashboard"><img src="/media/custom_admin/images/logo-mini.svg" alt="logo"/></a> -->
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="icon-menu"></span>
+        </button>
+        <ul class="navbar-nav mr-lg-2">
+          <li class="nav-item nav-search d-none d-lg-block">
+            <div class="input-group">
+              <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                <span class="input-group-text" id="search">
+                  <i class="icon-search"></i>
+                </span>
+              </div>
+              <form method="post">
+                {% csrf_token %}
+              <input type="text" id="search" name="search" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+              </form>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav navbar-nav-right">
+          
+          <li class="nav-item nav-profile dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
+              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="#4B49AC" class="bi bi-person-circle" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+              </svg>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+              
+              <a href="/custom-admin-management/logout" class="dropdown-item">
+                <i class="ti-power-off text-primary"></i>
+                Logout
+              </a>
+            </div>
+          </li>
+          
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+     
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/custom-admin-management/dashboard">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+             
+              <span class="menu-title">Users</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/users/all-active-users">All Active Users</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/users/normal-users">Normal Users</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/users/prime-users">Prime Users</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/users/dealer-users">Dealer Users</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/users/not-verified-users">Not Verified Users</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
+              <i class="icon-columns menu-icon"></i>
+              <span class="menu-title">Membership</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="form-elements">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"><a class="nav-link" href="/custom-admin-management/membership/prices">Membership Prices</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#charts" aria-expanded="false" aria-controls="charts">
+              <i class="icon-bar-graph menu-icon"></i>
+              <span class="menu-title">Orders</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="charts">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/orders/all-orders">Remaining Orders</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/orders/pending-orders">Pending Orders</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/orders/shipped-orders">Shipped Orders</a></li>
+                <li class="nav-item"> <a class="nav-link" href="/custom-admin-management/orders/cancelled-orders">Cancelled Orders</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/custom-admin-management/dealer/all-dealers" >
+              <i class="icon-grid-2 menu-icon"></i>
+              <span class="menu-title">Dealers</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/custom-admin-management/couriers/all-couriers">
+              <i class="icon-contract menu-icon"></i>
+              <span class="menu-title">Couriers Services</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" target="_blank"  href="/custom-admin-management/product-entry-tables" >
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">Edit Books</span>
+            </a>
+          
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  href="/custom-admin-management/coupon/all-coupon">
+              <i class="icon-ban menu-icon"></i>
+              <span class="menu-title">Coupons</span>
+            </a>
+          </li>
+          
+        </ul>
+      </nav>
+      <div class="main-panel">
+        <div class="content-wrapper">
+          {% block body %} {% endblock %}
+          </div>
+      
+        <footer class="footer">
+          <div class="d-sm-flex justify-content-center justify-content-sm-between">
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block"><a target="_blank" href="https://mrunalbooks.com">mrunalbooks.com</a></span>
+          </div>
+          
+        </footer> 
+      </div>
+    </div>   
+  </div>
+
+  <script src="/media/custom_admin/vendors/js/vendor.bundle.base.js"></script>
+  
+  <script src="/media/custom_admin/js/off-canvas.js"></script>
+  <script src="/media/custom_admin/js/template.js"></script>
+  
+</body>
+
+</html>
+
